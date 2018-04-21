@@ -44,6 +44,12 @@ variable "Subnet-Public-AzA-CIDR" {
   default = "172.28.0.0/24"
   description = "the cidr of the subnet"
 }
+
+variable "Subnet-Public-AzB-CIDR" {
+  default = "172.28.1.0/24"
+  description = "the cidr of the subnet"
+}
+
 variable "Subnet-Private-AzA-CIDR" {
   default = "172.28.3.0/24"
   description = "the cidr of the subnet"

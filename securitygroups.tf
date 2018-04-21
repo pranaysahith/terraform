@@ -29,18 +29,18 @@ resource "aws_security_group" "FrontEnd" {
 resource "aws_security_group" "Backend" {
   name = "Backend"
   tags {
-        Name = "Backend"
+        Name          = "Backend"
   }
-  description = "ONLY tcp CONNECTION INBOUND"
-  vpc_id = "${aws_vpc.terraformmain.id}"
+  description         = "ONLY tcp CONNECTION INBOUND"
+  vpc_id              = "${aws_vpc.terraformmain.id}"
   ingress {
-      from_port = 3306
-      to_port = 3306
-      protocol = "TCP"
+      from_port       = 3306
+      to_port         = 3306
+      protocol        = "TCP"
       security_groups = ["${aws_security_group.FrontEnd.id}"]
   }
   ingress {
-      from_port   = "3389"
+      from_port      = "3389"
       to_port     = "3389"
       protocol    = "TCP"
       cidr_blocks = ["0.0.0.0/0"]
@@ -51,6 +51,29 @@ resource "aws_security_group" "Backend" {
       protocol    = "TCP"
       cidr_blocks = ["0.0.0.0/0"]
   }
+  egress {
+    from_port     = 0
+    to_port       = 0
+    protocol      = "-1"
+    cidr_blocks   = ["0.0.0.0/0"]
+  }
+}
+
+resource "aws_security_group" "my_db_sg" {
+  name = "my_db_sg"
+
+  description = "RDS  servers (terraform-managed)"
+  vpc_id = "${aws_vpc.terraformmain.id}"
+
+  # Only mysql in
+  ingress {
+    from_port = 3306
+    to_port = 3306
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # Allow all outbound traffic.
   egress {
     from_port = 0
     to_port = 0
