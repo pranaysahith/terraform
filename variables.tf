@@ -5,9 +5,9 @@ variable "AmiLinux" {
   type = "map"
   default = {
     us-east-1 = "ami-1853ac65"
-    us-west-2 = "ami-d874e0a0" 
-    eu-west-1 = "ami-bf5540df" 
-    us-east-2 = "ami-ea87a78f" 
+    us-west-2 = "ami-d874e0a0"
+    eu-west-1 = "ami-bf5540df"
+    us-east-2 = "ami-ea87a78f"
   }
   description = "ami id for linux imgage"
 }
@@ -15,15 +15,15 @@ variable "Amiwindows" {
   type = "map"
   default = {
     us-east-1 = "ami-838b53fc"
-    us-west-2 = "ami-f3dcbc8b" 
-    eu-west-1 = "ami-d0d0c3b0" 
-    us-east-2 = "ami-5984b43c" 
+    us-west-2 = "ami-f3dcbc8b"
+    eu-west-1 = "ami-d0d0c3b0"
+    us-east-2 = "ami-5984b43c"
   }
   description = "ami id for linux imgage"
 }
 /*
 variable "aws_access_key" {
-  default = "xxxxx"
+  default = "ejbest"
   description = "the user aws access key"
 }
 variable "aws_secret_key" {
@@ -32,7 +32,7 @@ variable "aws_secret_key" {
 }
 */
 variable "credentialsfile" {
-  default = ".aws/credentials" #replace your home directory
+  default = "/Users/ej/.aws/credentials" #replace your home directory
   description = "aws config file location your access and secret_key are stored"
 }
 
@@ -49,6 +49,6 @@ variable "Subnet-Private-AzA-CIDR" {
   description = "the cidr of the subnet"
 }
 variable "key_name" {
-  default = "demo"
+  default = "ej_key_pair"
   description = "the ssh key to use in the EC2 machines"
 }
