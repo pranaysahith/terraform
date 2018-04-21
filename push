@@ -1,0 +1,6 @@
+#!/bin/bash
+# simple push command
+echo "pushing to GitHub changes including $1"
+git add .
+git commit -vm "$1"
+git push origin master
