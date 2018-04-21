@@ -28,7 +28,7 @@ resource "aws_subnet" "PublicAZB" {
   tags {
         Name = "PublicAZB"
   }
- availability_zone = "${data.aws_availability_zones.available.names[0]}"
+ availability_zone = "${data.aws_availability_zones.available.names[1]}"
 }
 resource "aws_route_table_association" "PublicAZB" {
     subnet_id = "${aws_subnet.PublicAZB.id}"
