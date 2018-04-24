@@ -3,7 +3,7 @@ resource "aws_security_group" "FrontEnd" {
   tags {
         Name = "FrontEnd"
   }
-  description = "ONLY HTTP CONNECTION INBOUD"
+  description = "ONLY HTTP CONNECTION IN-BOUND"
   vpc_id = "${aws_vpc.terraformmain.id}"
 
   ingress {
@@ -11,6 +11,18 @@ resource "aws_security_group" "FrontEnd" {
         to_port = 80
         protocol = "TCP"
         cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+        from_port = 443
+        to_port = 443
+        protocol = "TCP"
+        cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+      from_port       = "3389"
+      to_port         = "3389"
+      protocol        = "TCP"
+      cidr_blocks     = ["0.0.0.0/0"]
   }
   ingress {
         from_port = 3306
@@ -46,10 +58,10 @@ resource "aws_security_group" "Backend" {
       security_groups = ["${aws_security_group.FrontEnd.id}"]
   }
   ingress {
-      from_port      = "3389"
-      to_port     = "3389"
-      protocol    = "TCP"
-      cidr_blocks = ["0.0.0.0/0"]
+      from_port       = "3389"
+      to_port         = "3389"
+      protocol        = "TCP"
+      cidr_blocks     = ["0.0.0.0/0"]
   }
   ingress {
       from_port   = "22"
