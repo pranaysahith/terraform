@@ -72,6 +72,14 @@ resource "aws_db_instance" "default" {
   skip_final_snapshot         = true
 }
 
+resource "aws_route53_record" "ejs" {
+      zone_id = "${aws_route53_zone.primary.zone_id}"
+      name = "database.erich.com"
+      type = "CNAME"
+      ttl = "60"
+      records = ["${aws_db_instance.default.endpoint}"]
+   }
+
 resource "aws_db_subnet_group" "dbsubnet" {
   subnet_ids  = ["${aws_subnet.PublicAZA.id}", "${aws_subnet.PublicAZB.id}"]
 }
