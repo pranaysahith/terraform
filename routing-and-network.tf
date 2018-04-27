@@ -8,6 +8,7 @@ resource "aws_internet_gateway" "gw" {
         Name = "internet gw terraform generated"
     }
 }
+
 resource "aws_network_acl" "all" {
    vpc_id = "${aws_vpc.terraformmain.id}"
     egress {
@@ -30,6 +31,7 @@ resource "aws_network_acl" "all" {
         Name = "open acl"
     }
 }
+
 resource "aws_route_table" "public" {
   vpc_id = "${aws_vpc.terraformmain.id}"
   tags {
@@ -40,6 +42,7 @@ resource "aws_route_table" "public" {
         gateway_id = "${aws_internet_gateway.gw.id}"
     }
 }
+
 resource "aws_route_table" "private" {
   vpc_id = "${aws_vpc.terraformmain.id}"
   tags {
@@ -50,9 +53,11 @@ resource "aws_route_table" "private" {
         nat_gateway_id = "${aws_nat_gateway.PublicAZA.id}"
   }
 }
+
 resource "aws_eip" "forNat" {
     vpc      = true
 }
+
 resource "aws_nat_gateway" "PublicAZA" {
     allocation_id = "${aws_eip.forNat.id}"
     subnet_id = "${aws_subnet.PublicAZA.id}"

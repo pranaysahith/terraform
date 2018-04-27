@@ -57,6 +57,7 @@ resource "aws_instance" "windows" {
         Name                  = "windows"
   }
 }
+
 resource "aws_db_instance" "default" {
   allocated_storage           = 10
   storage_type                = "gp2"
@@ -73,26 +74,26 @@ resource "aws_db_instance" "default" {
 }
 
 resource "aws_route53_record" "ejs" {
-      zone_id = "${aws_route53_zone.primary.zone_id}"
-      name = "database.erich.com"
-      type = "CNAME"
-      ttl = "60"
-      records = ["${aws_db_instance.default.endpoint}"]
+      zone_id                 = "ZBVO8OQHTFSNO"
+      name                    = "database.erich.com"
+      type                    = "CNAME"
+      ttl                     = "60"
+      records                 = ["${aws_db_instance.default.endpoint}"]
    }
 
 resource "aws_db_subnet_group" "dbsubnet" {
-  subnet_ids  = ["${aws_subnet.PublicAZA.id}", "${aws_subnet.PublicAZB.id}"]
+  subnet_ids                  = ["${aws_subnet.PublicAZA.id}", "${aws_subnet.PublicAZB.id}"]
 }
 
 resource "aws_iam_instance_profile" "ssm_profile" {
-  name  = "ssm_profile"
-  role = "${aws_iam_role.ssm_role.name}"
+  name                        = "ssm_profile"
+  role                        = "${aws_iam_role.ssm_role.name}"
 }
 
 resource "aws_iam_role" "ssm_role" {
-  name = "ssm_role"
-  path = "/"
-  assume_role_policy = <<EOF
+  name                        = "ssm_role"
+  path                        = "/"
+  assume_role_policy          = <<EOF
 {
   	  "Version": "2012-10-17",
   	  "Statement": [
@@ -108,12 +109,13 @@ resource "aws_iam_role" "ssm_role" {
 EOF
 }
 
-data "aws_iam_policy" "ReadOnlyAccess"{
-arn =  "arn:aws:iam::aws:policy/AdministratorAccess"
+data "aws_iam_policy" "ReadOnlyAccess" 
+{
+arn                           =  "arn:aws:iam::aws:policy/AdministratorAccess"
 }
 
 resource "aws_iam_role_policy_attachment" "ssm_readonly_policy_attach"{
-role       = "${aws_iam_role.ssm_role.name}"
-policy_arn =  "${data.aws_iam_policy.ReadOnlyAccess.arn}"
+role                          = "${aws_iam_role.ssm_role.name}"
+policy_arn                    = "${data.aws_iam_policy.ReadOnlyAccess.arn}"
 
 }

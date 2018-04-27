@@ -1,6 +1,8 @@
+
 variable "region" {
   default = "us-east-1"
 }
+
 variable "AmiLinux" {
   type = "map"
   default = {
@@ -11,6 +13,7 @@ variable "AmiLinux" {
   }
   description = "ami id for linux imgage"
 }
+
 variable "Amiwindows" {
   type = "map"
   default = {
@@ -21,16 +24,7 @@ variable "Amiwindows" {
   }
   description = "ami id for linux imgage"
 }
-/*
-variable "aws_access_key" {
-  default = "ejbest"
-  description = "the user aws access key"
-}
-variable "aws_secret_key" {
-  default = "xxxx"
-  description = "the user aws secret key"
-}
-*/
+
 variable "credentialsfile" {
   default = "/Users/ej/.aws/credentials" #replace your home directory
   description = "aws config file location your access and secret_key are stored"
@@ -40,6 +34,7 @@ variable "vpc-fullcidr" {
     default = "172.28.0.0/16"
   description = "the vpc cdir"
 }
+
 variable "Subnet-Public-AzA-CIDR" {
   default = "172.28.0.0/24"
   description = "the cidr of the subnet"
@@ -54,7 +49,19 @@ variable "Subnet-Private-AzA-CIDR" {
   default = "172.28.3.0/24"
   description = "the cidr of the subnet"
 }
+
 variable "key_name" {
   default = "ej_key_pair"
   description = "the ssh key to use in the EC2 machines"
 }
+
+/*
+variable "aws_access_key" {
+  default = "ejbest"
+  description = "the user aws access key"
+}
+variable "aws_secret_key" {
+  default = "xxxx"
+  description = "the user aws secret key"
+}
+*/
