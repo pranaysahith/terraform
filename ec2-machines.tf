@@ -31,7 +31,8 @@ resource "aws_instance" "chefserver" {
   echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'gitpubkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/id_rsa.pub
   echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'gitpvtkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/id_rsa
   echo "setting protections on ej_key_pair.pem"
-  sudo chown ec2-user .ssh/*
+  cd
+  sudo chown ec2-user /home/ec2-user/.ssh/*
   chmod 600 /home/ec2-user/.ssh/ej_key_pair.pem
   echo "setting protections on id_rsa"
   chmod 600 /home/ec2-user/.ssh/id_rsa
@@ -93,7 +94,8 @@ resource "aws_instance" "chefworkstation" {
   echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'gitpubkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/id_rsa.pub
   echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'gitpvtkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/id_rsa
   echo "setting protections on .ssh folder in ec2-user"
-  sudo chown -v ec2-user .ssh/*
+  cd
+  sudo chown ec2-user /home/ec2-user/.ssh/*
   chmod 600 /home/ec2-user/.ssh/ej_key_pair.pem
   echo "setting protections on id_rsa"
   chmod 600 /home/ec2-user/.ssh/id_rsa
