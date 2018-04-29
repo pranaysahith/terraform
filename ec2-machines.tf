@@ -17,20 +17,44 @@ resource "aws_instance" "chefserver" {
   #!/bin/bash
   yum update -y
   yum -y install jq bc git
+  echo "#######################################################################################################################################"
+  echo "#######################################################################################################################################"
+  echo "#######################################################################################################################################"
+  echo "#######################################################################################################################################"
+  echo "#######################################################################################################################################"
+  echo "#######################################################################################################################################"
+  echo "#######################################################################################################################################"
+  echo "#######################################################################################################################################"
+  echo "#######################################################################################################################################"
   su - ec2-user
-  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'ejs' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" >        /home/ec2-user/.ssh/ej_key_pair.pem
+  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'ejs'        --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" >        /home/ec2-user/.ssh/ej_key_pair.pem
   echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'chefpubkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/id_rsa.pub
   echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'chefpvtkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/id_rsa
+  echo "setting protections on ej_key_pair.pem"
+  sudo chown ec2-user .ssh/*
   chmod 600 /home/ec2-user/.ssh/ej_key_pair.pem
+  echo "setting protections on id_rsa"
   chmod 600 /home/ec2-user/.ssh/id_rsa
+  echo "settting protetions on id_pub"
   chmod 600 /home/ec2-user/.ssh/id_pub
-  #Chef Installation Starts Here
-  mkdir /root/.chef
+  echo "starting Chef Installation in folder"
+  pwd
+  echo "creating folder .chef"
+  mkdir /home/ec2-user/.chef
+  echo "making testfile"
+  touch /home/ec2-user/.chef/mytestfile
+  ls -latr /home/ec2-user/.chef
+  ls -latr /home/ec2-user/.ssh
+  echo "User executing commands is"
+  whoami
+  echo "now working in /tmp"
   cd /tmp
+  echo "setting git commands"
   git config --global user.name "ejbest"
   git config --global user.email "ejbest@alumni.rutgers.edu"
   git config --global push.default matching
   echo -e '#!/bin/bash\nexec /usr/bin/ssh -o StrictHostKeyChecking=no -i /home/ec2-user/.ssh/id_rsa $@' > /tmp/git_ssh
+  echo "setting execute on git_ssh"
   chmod +x /tmp/git_ssh
   export GIT_SSH="/tmp/git_ssh"
   git clone git@github.com:ejbest/deployments.git
@@ -55,13 +79,34 @@ resource "aws_instance" "chefworkstation" {
   #!/bin/bash
   yum update -y
   yum -y install jq bc git
-  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'ejs' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" >        /home/ec2-user/.ssh/ej_key_pair.pem
+  echo "#######################################################################################################################################"
+  echo "#######################################################################################################################################"
+  echo "#######################################################################################################################################"
+  echo "#######################################################################################################################################"
+  echo "#######################################################################################################################################"
+  echo "#######################################################################################################################################"
+  echo "#######################################################################################################################################"
+  echo "#######################################################################################################################################"
+  echo "#######################################################################################################################################"
+  su - ec2-user
+  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'ejs'        --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/ej_key_pair.pem
   echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'chefpubkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/id_rsa.pub
   echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'chefpvtkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/id_rsa
+  echo "setting protections on ej_key_pair.pem"
+  sudo chown ec2-user .ssh/*
   chmod 600 /home/ec2-user/.ssh/ej_key_pair.pem
-  chmod 600 /home/ec2-user/ssh/id_rsa
+  echo "setting protections on id_rsa"
+  chmod 600 /home/ec2-user/.ssh/id_rsa
+  echo "settting protetions on id_pub"
   chmod 600 /home/ec2-user/.ssh/id_pub
+  echo "starting Chef Installation in folder"
+  pwd
   # aws s3api get-object --bucket chef-server-test --key chefserver.pub /etc/chef/chef-validator.pem
+  mkdir /home/ec2-user/.chef
+  touch /home/ec2-user/.chef/mytestfile
+  ls -latr /home/ec2-user/.chef
+  ls -latr /home/ec2-user/.ssh
+  cd /tmp
   cd /tmp
   git config --global user.name "ejbest"
   git config --global user.email "ejbest@alumni.rutgers.edu"
@@ -82,6 +127,7 @@ resource "aws_instance" "chefworkstation" {
 cd $${HOME}
 retry /tmp/deployments/ChefNode/ChefNodeInstall.sh
 sh /tmp/deployments/ChefMaster/ChefWorkInstall_RedHat.sh
+yum install -y httpd6 php56-mysqlnd
 EOF
 }
 
