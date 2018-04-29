@@ -1,0 +1,99 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+resource "aws_route53_record" "apache01" {
+  zone_id                     = "ZBVO8OQHTFSNO"
+  name                        = "apache01.erich.com"
+  type                        = "CNAME"
+  ttl                         = "60"
+  records                     = ["${aws_instance.apache01.public_dns}"]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+resource "aws_instance" "apache01" {
+  ami                         = "${lookup(var.AmiLinux, var.region)}"
+  instance_type               = "t2.micro"
+  associate_public_ip_address = "true"
+  subnet_id                   = "${aws_subnet.PublicAZA.id}"
+  vpc_security_group_ids      = ["${aws_security_group.FrontEnd.id}"]
+  key_name                    = "${var.key_name}"
+  tags {
+        Name                  = "apache01"
+  }
+  user_data                   = <<EOF
+  #!/bin/bash
+  yum update -y
+  cd /tmp
+  git config --global user.name "ejbest"
+  git config --global user.email "ejbest@alumni.rutgers.edu"
+  git config --global push.default matching
+  echo -e '#!/bin/bash\nexec /usr/bin/ssh -o StrictHostKeyChecking=no -i /root/.ssh/id_rsa $@' > /tmp/git_ssh
+  chmod +x /tmp/git_ssh
+  export GIT_SSH="/tmp/git_ssh"
+  git clone git@github.com:ejbest/deployments.git
+  retry() {
+    for i in {1..15}; do
+      eval $@ && return_status=$? && break || return_status=$? && sleep 30;
+    done
+    return $${return_status}
+  }
+  cd $${HOME}
+  retry /tmp/deployments/ChefNode/ChefNodeInstall.sh
+  yum install -y httpd6 php56-mysqlnd
+  service httpd start
+  chkconfig httpd on
+  EOF
+}
+
+
+/*
+resource "tls_private_key" "chefserver" {
+  algorithm   = "rsa"
+  rsa_bits    = 4096
+}
+
+resource "aws_s3_bucket" "chefserver" {
+    bucket = "chef-server-test"
+    # TODO: update with a more secure acl in future
+    acl    = "public-read"
+
+    tags {
+      Name        = "chefserver"
+      Environment = "test"
+    }
+
+    # TODO: control access by IAM permissions in future
+  }
+
+resource "aws_s3_bucket_object" "chefserver-private" {
+  bucket = "${aws_s3_bucket.chefserver.id}"
+  key = "chefserver.pem"
+  content_base64 = "${base64encode(tls_private_key.chefserver.private_key_pem)}"
+}
+
+resource "aws_s3_bucket_object" "chefserver-public" {
+  bucket = "${aws_s3_bucket.chefserver.id}"
+  key = "chefserver.pub"
+  content_base64 = "${base64encode(tls_private_key.chefserver.public_key_pem)}"
+}
+*/

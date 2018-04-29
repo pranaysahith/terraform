@@ -1,4 +1,45 @@
-resource "aws_instance" "ChefMaster" {
+
+
+resource "aws_instance" "chefserver" {
+  ami                         = "${lookup(var.AmiLinux, var.region)}"
+  instance_type               = "t2.small"
+  associate_public_ip_address = "true"
+  subnet_id                   = "${aws_subnet.PublicAZA.id}"
+  vpc_security_group_ids      = ["${aws_security_group.FrontEnd.id}"]
+  key_name                    = "${var.key_name}"
+  # TODO: make this instance profile have access to private chef bucket
+  iam_instance_profile        = "${aws_iam_instance_profile.ssm_profile.id}"
+  tags {
+        Name                  = "chefserver"
+        Environment           = "Test"
+  }
+  user_data                   = <<EOF
+  #!/bin/bash
+  yum update -y
+  yum -y install jq bc git
+  su - ec2-user
+  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'ejs' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" >        /home/ec2-user/.ssh/ej_key_pair.pem
+  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'chefpubkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/id_rsa.pub
+  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'chefpvtkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/id_rsa
+  chmod 600 /home/ec2-user/.ssh/ej_key_pair.pem
+  chmod 600 /home/ec2-user/.ssh/id_rsa
+  chmod 600 /home/ec2-user/.ssh/id_pub
+  #Chef Installation Starts Here
+  mkdir /root/.chef
+  cd /tmp
+  git config --global user.name "ejbest"
+  git config --global user.email "ejbest@alumni.rutgers.edu"
+  git config --global push.default matching
+  echo -e '#!/bin/bash\nexec /usr/bin/ssh -o StrictHostKeyChecking=no -i /home/ec2-user/.ssh/id_rsa $@' > /tmp/git_ssh
+  chmod +x /tmp/git_ssh
+  export GIT_SSH="/tmp/git_ssh"
+  git clone git@github.com:ejbest/deployments.git
+  cd $${HOME}
+  sh /tmp/deployments/ChefMaster/ChefServerInstall_RedHat.sh
+EOF
+}
+
+resource "aws_instance" "chefworkstation" {
   ami                         = "${lookup(var.AmiLinux, var.region)}"
   instance_type               = "t2.small"
   associate_public_ip_address = "true"
@@ -7,43 +48,49 @@ resource "aws_instance" "ChefMaster" {
   key_name                    = "${var.key_name}"
   iam_instance_profile        = "${aws_iam_instance_profile.ssm_profile.id}"
   tags {
-        Name                  = "ChefMaster"
+        Name                  = "chefworkstation"
         Environment           = "Test"
   }
   user_data                   = <<EOF
   #!/bin/bash
   yum update -y
   yum -y install jq bc git
-  echo "`aws ssm get-parameters --region us-east-1 --names 'ejs' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed -r 's/,/\\n/g'`\"> /root/.ssh/ej_key_pair.pem
-  echo "`aws ssm get-parameters --region us-east-1 --names 'chefpubkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed -r 's/ /\\n/g'`"> /root/.ssh/id_rsa.pub
-  echo "`aws ssm get-parameters --region us-east-1 --names 'chefpvtkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed -r 's/ /\\n/g'`"> /root/.ssh/id_rsa
-  chmod 600 /root/.ssh/ej_key_pair.pem
-  chmod 600 /root/.ssh/id_rsa
-  chmod 600 /root/.ssh/id_pub
+  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'ejs' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" >        /home/ec2-user/.ssh/ej_key_pair.pem
+  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'chefpubkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/id_rsa.pub
+  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'chefpvtkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/id_rsa
+  chmod 600 /home/ec2-user/.ssh/ej_key_pair.pem
+  chmod 600 /home/ec2-user/ssh/id_rsa
+  chmod 600 /home/ec2-user/.ssh/id_pub
+  # aws s3api get-object --bucket chef-server-test --key chefserver.pub /etc/chef/chef-validator.pem
   cd /tmp
   git config --global user.name "ejbest"
   git config --global user.email "ejbest@alumni.rutgers.edu"
   git config --global push.default matching
+  # curl -L https://www.chef.io/chef/install.sh | bash -s -- -v 12.12.13
+  # chef-client -j <(echo "{"run_list": ["role[apache]"]}")
+  # rm -rf /etc/chef/chef-validator.pem
+  echo -e '#!/bin/bash\nexec /usr/bin/ssh -o StrictHostKeyChecking=no -i /root/.ssh/id_rsa $@' > /tmp/git_ssh
+  chmod +x /tmp/git_ssh
+  export GIT_SSH="/tmp/git_ssh"
+  git clone git@github.com:ejbest/deployments.git
+  retry() {
+    for i in {1..15}; do
+      eval $@ && return_status=$? && break || return_status=$? && sleep 30;
+    done
+    return $${return_status}
+  }
+cd $${HOME}
+retry /tmp/deployments/ChefNode/ChefNodeInstall.sh
+sh /tmp/deployments/ChefMaster/ChefWorkInstall_RedHat.sh
 EOF
 }
 
-resource "aws_instance" "apache" {
-  ami                         = "${lookup(var.AmiLinux, var.region)}"
-  instance_type               = "t2.micro"
-  associate_public_ip_address = "true"
-  subnet_id                   = "${aws_subnet.PublicAZA.id}"
-  vpc_security_group_ids      = ["${aws_security_group.FrontEnd.id}"]
-  key_name                    = "${var.key_name}"
-  tags {
-        Name                  = "apache"
-  }
-  user_data                   = <<EOF
-  #!/bin/bash
-  yum update -y
-  yum install -y httpd6 php56-mysqlnd
-  service httpd start
-  chkconfig httpd on
-  EOF
+resource "aws_route53_record" "chefserver" {
+  zone_id                     = "ZBVO8OQHTFSNO"
+  name                        = "chefserver.erich.com"
+  type                        = "CNAME"
+  ttl                         = "60"
+  records                     = ["${aws_instance.chefserver.public_dns}"]
 }
 
 resource "aws_instance" "windows" {
@@ -74,12 +121,12 @@ resource "aws_db_instance" "default" {
 }
 
 resource "aws_route53_record" "ejs" {
-      zone_id                 = "ZBVO8OQHTFSNO"
-      name                    = "database.erich.com"
-      type                    = "CNAME"
-      ttl                     = "60"
-      records                 = ["${aws_db_instance.default.endpoint}"]
-   }
+  zone_id                     = "ZBVO8OQHTFSNO"
+  name                        = "mysql.erich.com"
+  type                        = "CNAME"
+  ttl                         = "60"
+  records                     = ["${aws_db_instance.default.address}"]
+}
 
 resource "aws_db_subnet_group" "dbsubnet" {
   subnet_ids                  = ["${aws_subnet.PublicAZA.id}", "${aws_subnet.PublicAZB.id}"]
@@ -109,7 +156,7 @@ resource "aws_iam_role" "ssm_role" {
 EOF
 }
 
-data "aws_iam_policy" "ReadOnlyAccess" 
+data "aws_iam_policy" "ReadOnlyAccess"
 {
 arn                           =  "arn:aws:iam::aws:policy/AdministratorAccess"
 }

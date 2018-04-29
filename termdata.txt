@@ -1,0 +1,34 @@
+|||  InstanceId            |  i-05203765b321ed3bf                        |||
+|||  InstanceType          |  t2.micro                                   |||
+|||  KeyName               |  ej_key_pair                                |||
+|||  LaunchTime            |  2018-04-21T16:57:01.000Z                   |||
+|||  PrivateDnsName        |                                             |||
+|||  PublicDnsName         |                                             |||
+|||  RootDeviceName        |  /dev/xvda                                  |||
+|||  RootDeviceType        |  ebs                                        |||
+--
+|||  InstanceType          |  t2.micro                                   |||
+|||  KeyName               |  ej_key_pair                                |||
+|||  LaunchTime            |  2018-04-21T16:57:16.000Z                   |||
+|||  Platform              |  windows                                    |||
+|||  PrivateDnsName        |                                             |||
+|||  PublicDnsName         |                                             |||
+|||  RootDeviceName        |  /dev/sda1                                  |||
+--
+|||  InstanceId            |  i-07acb26b5f13702ae                        |||
+--
+|||  InstanceId            |  i-0d0f01e99651d2273                        |||
+|||  InstanceType          |  t2.small                                   |||
+|||  KeyName               |  ej_key_pair                                |||
+|||  LaunchTime            |  2018-04-21T16:57:01.000Z                   |||
+|||  PrivateDnsName        |                                             |||
+|||  PublicDnsName         |                                             |||
+|||  RootDeviceName        |  /dev/xvda                                  |||
+|||  RootDeviceType        |  ebs                                        |||
+--
+|||  KeyName                     |  ej_key_pair                          |||
+|||  LaunchTime                  |  2018-04-21T17:54:54.000Z             |||
+|||  Platform                    |  windows                              |||
+|||  PrivateDnsName              |  ip-172-28-3-124.ec2.internal         |||
+|||  PrivateIpAddress            |  172.28.3.124                         |||
+|||  PublicDnsName               |                                       |||
