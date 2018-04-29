@@ -27,9 +27,9 @@ resource "aws_instance" "chefserver" {
   echo "#######################################################################################################################################"
   echo "#######################################################################################################################################"
   su - ec2-user
-  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'ejs'        --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" >        /home/ec2-user/.ssh/ej_key_pair.pem
-  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'chefpubkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/id_rsa.pub
-  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'chefpvtkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/id_rsa
+  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'ejs'        --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/ej_key_pair.pem
+  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'gitpubkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/id_rsa.pub
+  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'gitpvtkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/id_rsa
   echo "setting protections on ej_key_pair.pem"
   sudo chown ec2-user .ssh/*
   chmod 600 /home/ec2-user/.ssh/ej_key_pair.pem
@@ -89,11 +89,11 @@ resource "aws_instance" "chefworkstation" {
   echo "#######################################################################################################################################"
   echo "#######################################################################################################################################"
   su - ec2-user
-  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'ejs'        --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/ej_key_pair.pem
-  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'chefpubkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/id_rsa.pub
-  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'chefpvtkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/id_rsa
-  echo "setting protections on ej_key_pair.pem"
-  sudo chown ec2-user .ssh/*
+  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'ejs'       --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/ej_key_pair.pem
+  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'gitpubkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/id_rsa.pub
+  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'gitpvtkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/id_rsa
+  echo "setting protections on .ssh folder in ec2-user"
+  sudo chown -v ec2-user .ssh/*
   chmod 600 /home/ec2-user/.ssh/ej_key_pair.pem
   echo "setting protections on id_rsa"
   chmod 600 /home/ec2-user/.ssh/id_rsa
@@ -114,9 +114,18 @@ resource "aws_instance" "chefworkstation" {
   # curl -L https://www.chef.io/chef/install.sh | bash -s -- -v 12.12.13
   # chef-client -j <(echo "{"run_list": ["role[apache]"]}")
   # rm -rf /etc/chef/chef-validator.pem
+  echo "nxec id_rsa"
   echo -e '#!/bin/bash\nexec /usr/bin/ssh -o StrictHostKeyChecking=no -i /root/.ssh/id_rsa $@' > /tmp/git_ssh
+  echo "chmod on git_sh"
   chmod +x /tmp/git_ssh
   export GIT_SSH="/tmp/git_ssh"
+  sudo touch ~/.ssh/config"
+  sudo rm    ~/.ssh/config"
+  echo -e "Host github.com           " > ~/.ssh/config"
+  echo -e " StrictHostKeyChecking no " >> ~/.ssh/config"
+  echo -e "                          " >> ~/.ssh/config"
+  sudo chmod 600 ~/.ssh/config"
+  echo "Executing the git clone for deployments"
   git clone git@github.com:ejbest/deployments.git
   retry() {
     for i in {1..15}; do
@@ -124,11 +133,19 @@ resource "aws_instance" "chefworkstation" {
     done
     return $${return_status}
   }
-cd $${HOME}
-retry /tmp/deployments/ChefNode/ChefNodeInstall.sh
-sh /tmp/deployments/ChefMaster/ChefWorkInstall_RedHat.sh
-yum install -y httpd6 php56-mysqlnd
-EOF
+  #cd $${HOME}
+  cd
+  retry /tmp/deployments/ChefNode/ChefNodeInstall.sh
+  echo "executing chef node install"
+  sh /tmp/deployments/ChefNode/ChefNodeInstall.sh
+  echo "Executing chef workstation install"
+  sh /tmp/deployments/ChefMaster/ChefWorkInstall_RedHat.sh
+  sudo yum install -y httpd6 php56-mysqlnd
+  echo "doing mysql install"
+  sudo yum install mysql -y
+  git clone git@github.com:ejbest/ejs.git
+  mysql -u sa -pinitial123 -h mysql.erich.com --database="ejs" < ~/ejs/ejs.sql
+  EOF
 }
 
 resource "aws_route53_record" "chefserver" {
