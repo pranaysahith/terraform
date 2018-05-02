@@ -40,11 +40,11 @@ resource "aws_instance" "chefserver" {
   whoami
   echo "# getting rsa keys and giving them to both root and ec2-user ##############################"
   echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'ejs'       --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/ej_key_pair.pem
-  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'chefpubkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/id_rsa.pub
-  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'chefpvtkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/id_rsa
+  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'gitpubkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/id_rsa.pub
+  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'gitpvtkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/id_rsa
   echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'ejs'       --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /root/.ssh/ej_key_pair.pem
-  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'chefpubkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /root/.ssh/id_rsa.pub
-  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'chefpvtkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /root/.ssh/id_rsa
+  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'gitpubkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /root/.ssh/id_rsa.pub
+  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'gitpvtkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /root/.ssh/id_rsa
 
   echo "setting protections on ec2-user/.ssh"
   chown ec2-user /home/ec2-user/.ssh/*
@@ -125,11 +125,11 @@ resource "aws_instance" "chefworkstation" {
   whoami
   sudo su ej2-user
   echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'ejs'       --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/ej_key_pair.pem
-  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'chefpubkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/id_rsa.pub
-  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'chefpvtkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/id_rsa
+  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'gitpubkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/id_rsa.pub
+  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'gitpvtkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /home/ec2-user/.ssh/id_rsa
   echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'ejs'       --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /root/.ssh/ej_key_pair.pem
-  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'chefpubkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /root/.ssh/id_rsa.pub
-  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'chefpvtkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /root/.ssh/id_rsa
+  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'gitpubkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /root/.ssh/id_rsa.pub
+  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'gitpvtkey' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed 's/, /\\n/g')" > /root/.ssh/id_rsa
 
   echo "setting protections on .ssh folder in ec2-user"
   cd
