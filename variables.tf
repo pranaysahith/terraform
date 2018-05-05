@@ -14,6 +14,17 @@ variable "AmiLinux" {
   description = "ami id for linux imgage"
 }
 
+variable "CentosLinux" {
+  type = "map"
+  default = {
+    us-east-1 = "ami-6871a115"
+    us-west-2 = "ami-d874e0a0"
+    eu-west-1 = "ami-bf5540df"
+    us-east-2 = "ami-ea87a78f"
+  }
+  description = "ami id for linux imgage"
+}
+
 variable "Amiwindows" {
   type = "map"
   default = {
