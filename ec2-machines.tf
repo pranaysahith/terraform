@@ -9,27 +9,41 @@ resource "aws_instance" "apache" {
   # TODO: make this instance profile have access to private chef bucket
   iam_instance_profile        = "${aws_iam_instance_profile.ssm_profile.id}"
 
+  provisioner "file" {
+    source                    = "/tmp/myfile.txt"
+    destination               = "/tmp"
+    connection {
+      user                    = "ec2-user"
+      agent                   = "false"
+      type                    = "ssh"
+      private_key             = "${file("/Users/ej/.ssh/ej_key_pair.pem")}"
+      timeout                 = "30s"
+    }
+  }
+
+  provisioner "file" {
+      source                    = "/tmp/myfile.txt"
+      destination               = "/tmp"
+      connection {
+        user                    = "ec2-user"
+        agent                   = "false"
+        type                    = "ssh"
+        private_key             = "${file("/Users/ej/.ssh/ej_key_pair.pem")}"
+        timeout                 = "30s"
+      }
+  }
   tags {
         Name                  = "apache"
         Environment           = "Test"
   }
-
-  provisioner "file" {
-    source      = "/Users/ej/.ssh/ej_key_pair.pem"
-    destination = "/root/.ssh/ej_key_pair.pem"
-  }
-
-  provisioner "file" {
-    source      = "/vol1/mytest.txt"
-    destination = "/tmp/mytest.txt"
-  }
-  provisioner "file" {
-    source      = "/vol1/deployments"
-    destination = "/tmp/deployments"
-  }
-
   user_data                   = <<EOF
-  #!/bin/bash
+  #cloud-config
+  write_files:
+  - path: /tmp/test-file.txt
+    owner: root:root
+    permissions: '0644'
+    content: |
+      This is a sample text!i
   echo "##################################################################################"
   echo "##### yum ########################################################################"
   echo "##################################################################################"
@@ -41,11 +55,8 @@ resource "aws_instance" "apache" {
   myip=$(nslookup apache.erich.com | grep Address | tail -1 | cut -f2 -d ":")
   echo "$myip apache apache.erich.com" > /etc/hosts
   hostname apache
-
   EOF
 }
-
-
 
 resource "aws_route53_record" "apache" {
   zone_id                     = "ZBVO8OQHTFSNO"
@@ -64,11 +75,6 @@ resource "aws_instance" "chefserver" {
   key_name                    = "${var.key_name}"
   # TODO: make this instance profile have access to private chef bucket
   iam_instance_profile        = "${aws_iam_instance_profile.ssm_profile.id}"
-
-  provisioner "file" {
-    source      = "~/.ssh/ej_key_pair.pem"
-    destination = "/root/.ssh/ej_key_pair.pem"
-  }
 
   tags {
         Name                  = "chefserver"

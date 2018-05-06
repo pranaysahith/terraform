@@ -1,3 +1,15 @@
+
+
+
+  provisioner "file" {
+    source      = "/vol1/mytest.txt"
+    destination = "/tmp/mytest.txt"
+  }
+  provisioner "file" {
+    source      = "/vol1/deployments"
+    destination = "/tmp/deployments"
+  }
+
 resource "aws_instance" "chefserver2" {
   ami                         = "${lookup(var.CentosLinux, var.region)}"
   instance_type               = "t2.small"
