@@ -55,19 +55,25 @@ resource "aws_instance" "apache" {
     owner: root:root
     permissions: '0644'
     content: |
-      This is a sample text!i
+      This is a sample text!
   #!/bin/bash
-
-  echo "##################################################################################"
-  echo "##### copy keys ##################################################################"
-  echo "##################################################################################"
-  cp /home/ec2-user/.ssh/id_rsa          /root/.ssh/id_rsa
-  cp /home/ec2-user/.ssh/id_rsa.pub      /root/.ssh/id_rsa.pub
-  cp /home/ec2-user/.ssh/ej_key_pair.pem /root/.ssh/ej_key_pair.pem
   echo "##################################################################################"
   echo "##### yum ########################################################################"
   echo "##################################################################################"
   yum update -y
+  echo "##################################################################################"
+  echo "##### copy keys ##################################################################"
+  echo "##################################################################################"
+  retry() {
+    for i in {1..15}; do
+      eval $@ && return_status=$? && break || return_status=$? && sleep 30;
+      cp /home/ec2-user/.ssh/id_rsa      /root/.ssh/id_rsa
+    done
+    return $${return_status}
+  }
+  cp /home/ec2-user/.ssh/id_rsa          /root/.ssh/id_rsa
+  cp /home/ec2-user/.ssh/id_rsa.pub      /root/.ssh/id_rsa.pub
+  cp /home/ec2-user/.ssh/ej_key_pair.pem /root/.ssh/ej_key_pair.pem
   echo "##################################################################################"
   echo "##### Setting Host Details #######################################################"
   echo "##################################################################################"
@@ -95,11 +101,12 @@ resource "aws_instance" "apache" {
   retry() {
     for i in {1..15}; do
       eval $@ && return_status=$? && break || return_status=$? && sleep 30;
+      retry /tmp/deployments/ChefNode/ChefNodeInstall.sh
     done
     return $${return_status}
   }
   cd $${HOME}
-  retry /tmp/deployments/ChefNode/ChefNodeInstall.sh
+
   yum install -y httpd6 php56-mysqlnd
   service httpd start
   chkconfig httpd on
@@ -182,35 +189,47 @@ resource "aws_instance" "chefserver" {
   echo "##### yum ########################################################################"
   echo "##################################################################################"
   yum update -y
+  yum install jq bc git -y
   echo "##################################################################################"
   echo "##### copy keys ##################################################################"
   echo "##################################################################################"
+  retry() {
+    for i in {1..15}; do
+      eval $@ && return_status=$? && break || return_status=$? && sleep 30;
+      cp /home/ec2-user/.ssh/id_rsa      /root/.ssh/id_rsa
+    done
+    return $${return_status}
+  }
   cp /home/ec2-user/.ssh/id_rsa          /root/.ssh/id_rsa
   cp /home/ec2-user/.ssh/id_rsa.pub      /root/.ssh/id_rsa.pub
   cp /home/ec2-user/.ssh/ej_key_pair.pem /root/.ssh/ej_key_pair.pem
   echo "##################################################################################"
-  echo "##### rsa keys ###################################################################"
+  echo "##### Setting Host Details #######################################################"
   echo "##################################################################################"
-  #cd /root/.ssh
-  #python rsassm_id_rsa.py > id_rsa
-  #python rsassm_ej_key_pair.pem > ej_key_pair.pem
-  #cd /home/ec2-user/
-  #python ret-ssm.py
-  #echo "# getting rsa keys and giving them to both root and ec2-user ##############################"
-  #echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'id_rsa' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed -e $'s/,/\\n/g') " > /root/.ssh/id_rsa
-  yum -y install jq bc git
+  sed -i "s/localhost.localdomain/chefserver/g" /etc/sysconfig/network
+  myip=$(nslookup chefserver.erich.com | grep Address | tail -1 | cut -f2 -d ":")
+  echo "$myip apache apache.erich.com" > /etc/hosts
+  hostname chefserver
+  echo "##################################################################################"
+  echo "##### github details #############################################################"
+  echo "##################################################################################"
   ssh-keyscan github.com >>/root/.ssh/known_hosts
   echo -e "Host github.com           " > ~/.ssh/config
   echo -e " StrictHostKeyChecking no " >> ~/.ssh/config
   echo -e "                          " >> ~/.ssh/config
   sudo chmod 600 ~/.ssh/config
   cd /tmp
-  echo "#####################  doing now the clone #####################################################################"
   git config --global user.name  'EJ Best'
   git config --global user.email 'ejbest@alumni.rutgers.edu'
   chmod 400 /root/.ssh/*
   ls -lS    /root/.ssh/
+  echo "##################################################################################"
+  echo "##### doing git clone ############################################################"
+  echo "##################################################################################"
   git clone git@github.com:ejbest/deployments.git
+  echo "##################################################################################"
+  echo "##### ChefServerInstall_RedHat.sh ################################################"
+  echo "##################################################################################"
   sh /tmp/deployments/ChefMaster/ChefServerInstall_RedHat.sh
 EOF
 }

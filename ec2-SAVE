@@ -1,6 +1,18 @@
 
 ami-838b53fc"
 
+echo "##################################################################################"
+echo "##### rsa keys ###################################################################"
+echo "##################################################################################"
+#cd /root/.ssh
+#python rsassm_id_rsa.py > id_rsa
+#python rsassm_ej_key_pair.pem > ej_key_pair.pem
+#cd /home/ec2-user/
+#python ret-ssm.py
+#echo "# getting rsa keys and giving them to both root and ec2-user ##############################"
+#echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'id_rsa' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed -e $'s/,/\\n/g') " > /root/.ssh/id_rsa
+
+
 
 resource "aws_instance" "chefserver2" {
   ami                         = "${lookup(var.CentosLinux, var.region)}"
