@@ -1,0 +1,244 @@
+[0m[1maws_iam_role.ssm_role: Refreshing state... (ID: ssm_role)[0m
+[0m[1maws_vpc.terraformmain: Refreshing state... (ID: vpc-d4785caf)[0m
+[0m[1maws_eip.forNat: Refreshing state... (ID: eipalloc-16a4401e)[0m
+[0m[1mdata.aws_iam_policy.ReadOnlyAccess: Refreshing state...[0m
+[0m[1mdata.aws_availability_zones.available: Refreshing state...[0m
+[0m[1maws_iam_instance_profile.ssm_profile: Refreshing state... (ID: ssm_profile)[0m
+[0m[1maws_iam_role_policy_attachment.ssm_readonly_policy_attach: Refreshing state... (ID: ssm_role-20180508211259835100000001)[0m
+[0m[1maws_subnet.PrivateAZA: Refreshing state... (ID: subnet-29976607)[0m
+[0m[1maws_subnet.PublicAZB: Refreshing state... (ID: subnet-879465a9)[0m
+[0m[1maws_subnet.PublicAZA: Refreshing state... (ID: subnet-e4955083)[0m
+[0m[1maws_internet_gateway.gw: Refreshing state... (ID: igw-41e48d39)[0m
+[0m[1maws_security_group.FrontEnd: Refreshing state... (ID: sg-d79c649f)[0m
+[0m[1maws_security_group.my_db_sg: Refreshing state... (ID: sg-00916948)[0m
+[0m[1maws_network_acl.all: Refreshing state... (ID: acl-47c77c3d)[0m
+[0m[1maws_route_table.public: Refreshing state... (ID: rtb-42ebe43e)[0m
+[0m[1maws_nat_gateway.PublicAZA: Refreshing state... (ID: nat-0dec2104c475c12dc)[0m
+[0m[1maws_db_subnet_group.dbsubnet: Refreshing state... (ID: terraform-20180508211309166700000002)[0m
+[0m[1maws_instance.apache: Refreshing state... (ID: i-0b54056d4f22eb5ae)[0m
+[0m[1maws_instance.chefserver: Refreshing state... (ID: i-08a21d792334acf79)[0m
+[0m[1maws_security_group.Backend: Refreshing state... (ID: sg-ed936ba5)[0m
+[0m[1maws_route_table_association.PublicAZB: Refreshing state... (ID: rtbassoc-5073072f)[0m
+[0m[1maws_route_table_association.PublicAZA: Refreshing state... (ID: rtbassoc-187c0867)[0m
+[0m[1maws_route_table.private: Refreshing state... (ID: rtb-4deee131)[0m
+[0m[1maws_db_instance.default: Refreshing state... (ID: terraform-20180508211315952900000003)[0m
+[0m[1maws_route_table_association.PrivateAZA: Refreshing state... (ID: rtbassoc-2e750151)[0m
+[0m[1maws_route53_record.ejs: Refreshing state... (ID: ZBVO8OQHTFSNO_mysql.erich.com_CNAME)[0m
+[0m[1maws_route53_record.apache: Refreshing state... (ID: ZBVO8OQHTFSNO_apache.erich.com_CNAME)[0m
+[0m[1maws_route53_record.chefserver: Refreshing state... (ID: ZBVO8OQHTFSNO_chefserver.erich.com_CNAME)[0m
+[0m[1maws_route53_record.chefworkstation: Refreshing state... (ID: ZBVO8OQHTFSNO_chefworkstation.erich.com_CNAME)[0m
+[0m[1maws_instance.apache: Destroying... (ID: i-0b54056d4f22eb5ae)[0m[0m
+[0m[1maws_instance.chefserver: Destroying... (ID: i-08a21d792334acf79)[0m[0m
+[0m[1maws_instance.windows: Creating...[0m
+  ami:                               "" => "ami-00dd3069"
+  associate_public_ip_address:       "" => "true"
+  availability_zone:                 "" => "<computed>"
+  ebs_block_device.#:                "" => "<computed>"
+  ephemeral_block_device.#:          "" => "<computed>"
+  get_password_data:                 "" => "false"
+  instance_state:                    "" => "<computed>"
+  instance_type:                     "" => "t2.micro"
+  ipv6_address_count:                "" => "<computed>"
+  ipv6_addresses.#:                  "" => "<computed>"
+  key_name:                          "" => "ej_key_pair"
+  network_interface.#:               "" => "<computed>"
+  network_interface_id:              "" => "<computed>"
+  password_data:                     "" => "<computed>"
+  placement_group:                   "" => "<computed>"
+  primary_network_interface_id:      "" => "<computed>"
+  private_dns:                       "" => "<computed>"
+  private_ip:                        "" => "<computed>"
+  public_dns:                        "" => "<computed>"
+  public_ip:                         "" => "<computed>"
+  root_block_device.#:               "" => "<computed>"
+  security_groups.#:                 "" => "<computed>"
+  source_dest_check:                 "" => "true"
+  subnet_id:                         "" => "subnet-e4955083"
+  tags.%:                            "" => "1"
+  tags.Name:                         "" => "windows"
+  tenancy:                           "" => "<computed>"
+  volume_tags.%:                     "" => "<computed>"
+  vpc_security_group_ids.#:          "" => "1"
+  vpc_security_group_ids.3560387168: "" => "sg-d79c649f"[0m
+[0m[1maws_instance.apache: Still destroying... (ID: i-0b54056d4f22eb5ae, 10s elapsed)[0m[0m
+[0m[1maws_instance.chefserver: Still destroying... (ID: i-08a21d792334acf79, 10s elapsed)[0m[0m
+[0m[1maws_instance.chefserver: Still destroying... (ID: i-08a21d792334acf79, 20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still destroying... (ID: i-0b54056d4f22eb5ae, 20s elapsed)[0m[0m
+[0m[1maws_instance.chefserver: Still destroying... (ID: i-08a21d792334acf79, 30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still destroying... (ID: i-0b54056d4f22eb5ae, 30s elapsed)[0m[0m
+[0m[1maws_instance.chefserver: Still destroying... (ID: i-08a21d792334acf79, 40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still destroying... (ID: i-0b54056d4f22eb5ae, 40s elapsed)[0m[0m
+[0m[1maws_instance.chefserver: Still destroying... (ID: i-08a21d792334acf79, 50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still destroying... (ID: i-0b54056d4f22eb5ae, 50s elapsed)[0m[0m
+[0m[1maws_instance.chefserver: Destruction complete after 53s[0m[0m
+[0m[1maws_instance.chefserver: Creating...[0m
+  ami:                               "" => "ami-1853ac65"
+  associate_public_ip_address:       "" => "true"
+  availability_zone:                 "" => "<computed>"
+  ebs_block_device.#:                "" => "<computed>"
+  ephemeral_block_device.#:          "" => "<computed>"
+  get_password_data:                 "" => "false"
+  iam_instance_profile:              "" => "ssm_profile"
+  instance_state:                    "" => "<computed>"
+  instance_type:                     "" => "t2.small"
+  ipv6_address_count:                "" => "<computed>"
+  ipv6_addresses.#:                  "" => "<computed>"
+  key_name:                          "" => "ej_key_pair"
+  network_interface.#:               "" => "<computed>"
+  network_interface_id:              "" => "<computed>"
+  password_data:                     "" => "<computed>"
+  placement_group:                   "" => "<computed>"
+  primary_network_interface_id:      "" => "<computed>"
+  private_dns:                       "" => "<computed>"
+  private_ip:                        "" => "<computed>"
+  public_dns:                        "" => "<computed>"
+  public_ip:                         "" => "<computed>"
+  root_block_device.#:               "" => "<computed>"
+  security_groups.#:                 "" => "<computed>"
+  source_dest_check:                 "" => "true"
+  subnet_id:                         "" => "subnet-e4955083"
+  tags.%:                            "" => "2"
+  tags.Environment:                  "" => "Test"
+  tags.Name:                         "" => "chefserver"
+  tenancy:                           "" => "<computed>"
+  user_data:                         "" => "a601a08789b36229cd9a225f0b46a1919944bdfc"
+  volume_tags.%:                     "" => "<computed>"
+  vpc_security_group_ids.#:          "" => "1"
+  vpc_security_group_ids.3560387168: "" => "sg-d79c649f"[0m
+[0m[1maws_instance.apache: Still destroying... (ID: i-0b54056d4f22eb5ae, 1m0s elapsed)[0m[0m
+[0m[1maws_instance.chefserver: Still creating... (10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Destruction complete after 1m3s[0m[0m
+[0m[1maws_instance.apache: Creating...[0m
+  ami:                               "" => "ami-1853ac65"
+  associate_public_ip_address:       "" => "true"
+  availability_zone:                 "" => "<computed>"
+  ebs_block_device.#:                "" => "<computed>"
+  ephemeral_block_device.#:          "" => "<computed>"
+  get_password_data:                 "" => "false"
+  iam_instance_profile:              "" => "ssm_profile"
+  instance_state:                    "" => "<computed>"
+  instance_type:                     "" => "t2.micro"
+  ipv6_address_count:                "" => "<computed>"
+  ipv6_addresses.#:                  "" => "<computed>"
+  key_name:                          "" => "ej_key_pair"
+  network_interface.#:               "" => "<computed>"
+  network_interface_id:              "" => "<computed>"
+  password_data:                     "" => "<computed>"
+  placement_group:                   "" => "<computed>"
+  primary_network_interface_id:      "" => "<computed>"
+  private_dns:                       "" => "<computed>"
+  private_ip:                        "" => "<computed>"
+  public_dns:                        "" => "<computed>"
+  public_ip:                         "" => "<computed>"
+  root_block_device.#:               "" => "<computed>"
+  security_groups.#:                 "" => "<computed>"
+  source_dest_check:                 "" => "true"
+  subnet_id:                         "" => "subnet-e4955083"
+  tags.%:                            "" => "2"
+  tags.Environment:                  "" => "Test"
+  tags.Name:                         "" => "apache"
+  tenancy:                           "" => "<computed>"
+  user_data:                         "" => "5d5eaef6c2bd31c5e12fb0ec3603c972a4313d12"
+  volume_tags.%:                     "" => "<computed>"
+  vpc_security_group_ids.#:          "" => "1"
+  vpc_security_group_ids.3560387168: "" => "sg-d79c649f"[0m
+[0m[1maws_instance.chefserver: Still creating... (20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (10s elapsed)[0m[0m
+[0m[1maws_instance.chefserver: Still creating... (30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Provisioning with 'file'...[0m[0m
+[0m[1maws_instance.chefserver: Provisioning with 'file'...[0m[0m
+[0m[1maws_instance.chefserver: Still creating... (40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (30s elapsed)[0m[0m
+[0m[1maws_instance.chefserver: Still creating... (50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (40s elapsed)[0m[0m
+[0m[1maws_instance.chefserver: Still creating... (1m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (50s elapsed)[0m[0m
+[0m[1maws_instance.chefserver: Still creating... (1m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (1m0s elapsed)[0m[0m
+[0m[1maws_instance.chefserver: Still creating... (1m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (1m10s elapsed)[0m[0m
+[0m[1maws_instance.chefserver: Still creating... (1m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (1m20s elapsed)[0m[0m
+[0m[1maws_instance.chefserver: Still creating... (1m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (1m30s elapsed)[0m[0m
+[0m[1maws_instance.chefserver: Still creating... (1m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (1m40s elapsed)[0m[0m
+[0m[1maws_instance.chefserver: Still creating... (2m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (1m50s elapsed)[0m[0m
+[0m[1maws_instance.chefserver: Still creating... (2m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (2m0s elapsed)[0m[0m
+[0m[1maws_instance.chefserver: Still creating... (2m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (2m10s elapsed)[0m[0m
+[0m[1maws_instance.chefserver: Still creating... (2m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (2m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Provisioning with 'file'...[0m[0m
+[0m[1maws_instance.chefserver: Provisioning with 'file'...[0m[0m
+[0m[1maws_instance.apache: Provisioning with 'file'...[0m[0m
+[0m[1maws_instance.chefserver: Provisioning with 'file'...[0m[0m
+[0m[1maws_instance.apache: Creation complete after 2m27s (ID: i-01bb66621edaa3048)[0m[0m
+[0m[1maws_route53_record.apache: Modifying... (ID: ZBVO8OQHTFSNO_apache.erich.com_CNAME)[0m
+  records.915106897: "" => "ec2-18-233-93-7.compute-1.amazonaws.com"
+  records.951509161: "ec2-35-172-110-222.compute-1.amazonaws.com" => ""[0m
+[0m[1maws_instance.chefserver: Provisioning with 'file'...[0m[0m
+[0m[1maws_instance.chefserver: Creation complete after 2m38s (ID: i-0368ecd6166c77392)[0m[0m
+[0m[1maws_route53_record.chefserver: Modifying... (ID: ZBVO8OQHTFSNO_chefserver.erich.com_CNAME)[0m
+  records.2337590481: "" => "ec2-34-201-47-25.compute-1.amazonaws.com"
+  records.3748719915: "ec2-54-174-112-234.compute-1.amazonaws.com" => ""[0m
+[0m[1maws_route53_record.chefworkstation: Modifying... (ID: ZBVO8OQHTFSNO_chefworkstation.erich.com_CNAME)[0m
+  records.2337590481: "" => "ec2-34-201-47-25.compute-1.amazonaws.com"
+  records.3748719915: "ec2-54-174-112-234.compute-1.amazonaws.com" => ""[0m
+[0m[1maws_route53_record.apache: Still modifying... (ID: ZBVO8OQHTFSNO_apache.erich.com_CNAME, 10s elapsed)[0m[0m
+[0m[1maws_route53_record.chefserver: Still modifying... (ID: ZBVO8OQHTFSNO_chefserver.erich.com_CNAME, 10s elapsed)[0m[0m
+[0m[1maws_route53_record.chefworkstation: Still modifying... (ID: ZBVO8OQHTFSNO_chefworkstation.erich.com_CNAME, 10s elapsed)[0m[0m
+[0m[1maws_route53_record.apache: Still modifying... (ID: ZBVO8OQHTFSNO_apache.erich.com_CNAME, 20s elapsed)[0m[0m
+[0m[1maws_route53_record.chefserver: Still modifying... (ID: ZBVO8OQHTFSNO_chefserver.erich.com_CNAME, 20s elapsed)[0m[0m
+[0m[1maws_route53_record.chefworkstation: Still modifying... (ID: ZBVO8OQHTFSNO_chefworkstation.erich.com_CNAME, 20s elapsed)[0m[0m
+[0m[1maws_route53_record.apache: Still modifying... (ID: ZBVO8OQHTFSNO_apache.erich.com_CNAME, 30s elapsed)[0m[0m
+[0m[1maws_route53_record.chefserver: Still modifying... (ID: ZBVO8OQHTFSNO_chefserver.erich.com_CNAME, 30s elapsed)[0m[0m
+[0m[1maws_route53_record.chefworkstation: Still modifying... (ID: ZBVO8OQHTFSNO_chefworkstation.erich.com_CNAME, 30s elapsed)[0m[0m
+[0m[1maws_route53_record.apache: Still modifying... (ID: ZBVO8OQHTFSNO_apache.erich.com_CNAME, 40s elapsed)[0m[0m
+[0m[1maws_route53_record.chefworkstation: Still modifying... (ID: ZBVO8OQHTFSNO_chefworkstation.erich.com_CNAME, 40s elapsed)[0m[0m
+[0m[1maws_route53_record.chefserver: Still modifying... (ID: ZBVO8OQHTFSNO_chefserver.erich.com_CNAME, 40s elapsed)[0m[0m
+[0m[1maws_route53_record.apache: Still modifying... (ID: ZBVO8OQHTFSNO_apache.erich.com_CNAME, 50s elapsed)[0m[0m
+[0m[1maws_route53_record.chefworkstation: Still modifying... (ID: ZBVO8OQHTFSNO_chefworkstation.erich.com_CNAME, 50s elapsed)[0m[0m
+[0m[1maws_route53_record.chefserver: Still modifying... (ID: ZBVO8OQHTFSNO_chefserver.erich.com_CNAME, 50s elapsed)[0m[0m
+[0m[1maws_route53_record.apache: Still modifying... (ID: ZBVO8OQHTFSNO_apache.erich.com_CNAME, 1m0s elapsed)[0m[0m
+[0m[1maws_route53_record.chefworkstation: Still modifying... (ID: ZBVO8OQHTFSNO_chefworkstation.erich.com_CNAME, 1m0s elapsed)[0m[0m
+[0m[1maws_route53_record.chefserver: Still modifying... (ID: ZBVO8OQHTFSNO_chefserver.erich.com_CNAME, 1m0s elapsed)[0m[0m
+[0m[1maws_route53_record.apache: Still modifying... (ID: ZBVO8OQHTFSNO_apache.erich.com_CNAME, 1m10s elapsed)[0m[0m
+[0m[1maws_route53_record.chefworkstation: Still modifying... (ID: ZBVO8OQHTFSNO_chefworkstation.erich.com_CNAME, 1m10s elapsed)[0m[0m
+[0m[1maws_route53_record.chefserver: Still modifying... (ID: ZBVO8OQHTFSNO_chefserver.erich.com_CNAME, 1m10s elapsed)[0m[0m
+[0m[1maws_route53_record.apache: Still modifying... (ID: ZBVO8OQHTFSNO_apache.erich.com_CNAME, 1m20s elapsed)[0m[0m
+[0m[1maws_route53_record.chefserver: Still modifying... (ID: ZBVO8OQHTFSNO_chefserver.erich.com_CNAME, 1m20s elapsed)[0m[0m
+[0m[1maws_route53_record.chefworkstation: Still modifying... (ID: ZBVO8OQHTFSNO_chefworkstation.erich.com_CNAME, 1m20s elapsed)[0m[0m
+[0m[1maws_route53_record.apache: Still modifying... (ID: ZBVO8OQHTFSNO_apache.erich.com_CNAME, 1m30s elapsed)[0m[0m
+[0m[1maws_route53_record.chefworkstation: Still modifying... (ID: ZBVO8OQHTFSNO_chefworkstation.erich.com_CNAME, 1m30s elapsed)[0m[0m
+[0m[1maws_route53_record.chefserver: Still modifying... (ID: ZBVO8OQHTFSNO_chefserver.erich.com_CNAME, 1m30s elapsed)[0m[0m
+[0m[1maws_route53_record.apache: Still modifying... (ID: ZBVO8OQHTFSNO_apache.erich.com_CNAME, 1m40s elapsed)[0m[0m
+[0m[1maws_route53_record.chefserver: Still modifying... (ID: ZBVO8OQHTFSNO_chefserver.erich.com_CNAME, 1m40s elapsed)[0m[0m
+[0m[1maws_route53_record.chefworkstation: Still modifying... (ID: ZBVO8OQHTFSNO_chefworkstation.erich.com_CNAME, 1m40s elapsed)[0m[0m
+[0m[1maws_route53_record.apache: Still modifying... (ID: ZBVO8OQHTFSNO_apache.erich.com_CNAME, 1m50s elapsed)[0m[0m
+[0m[1maws_route53_record.chefworkstation: Still modifying... (ID: ZBVO8OQHTFSNO_chefworkstation.erich.com_CNAME, 1m50s elapsed)[0m[0m
+[0m[1maws_route53_record.chefserver: Still modifying... (ID: ZBVO8OQHTFSNO_chefserver.erich.com_CNAME, 1m50s elapsed)[0m[0m
+[0m[1maws_route53_record.apache: Still modifying... (ID: ZBVO8OQHTFSNO_apache.erich.com_CNAME, 2m0s elapsed)[0m[0m
+[0m[1maws_route53_record.chefserver: Still modifying... (ID: ZBVO8OQHTFSNO_chefserver.erich.com_CNAME, 2m0s elapsed)[0m[0m
+[0m[1maws_route53_record.chefworkstation: Still modifying... (ID: ZBVO8OQHTFSNO_chefworkstation.erich.com_CNAME, 2m0s elapsed)[0m[0m
+[0m[1maws_route53_record.apache: Still modifying... (ID: ZBVO8OQHTFSNO_apache.erich.com_CNAME, 2m10s elapsed)[0m[0m
+[0m[1maws_route53_record.chefserver: Still modifying... (ID: ZBVO8OQHTFSNO_chefserver.erich.com_CNAME, 2m10s elapsed)[0m[0m
+[0m[1maws_route53_record.chefworkstation: Still modifying... (ID: ZBVO8OQHTFSNO_chefworkstation.erich.com_CNAME, 2m10s elapsed)[0m[0m
+[0m[1maws_route53_record.apache: Still modifying... (ID: ZBVO8OQHTFSNO_apache.erich.com_CNAME, 2m20s elapsed)[0m[0m
+[0m[1maws_route53_record.chefworkstation: Still modifying... (ID: ZBVO8OQHTFSNO_chefworkstation.erich.com_CNAME, 2m20s elapsed)[0m[0m
+[0m[1maws_route53_record.chefserver: Still modifying... (ID: ZBVO8OQHTFSNO_chefserver.erich.com_CNAME, 2m20s elapsed)[0m[0m
+[0m[1maws_route53_record.apache: Still modifying... (ID: ZBVO8OQHTFSNO_apache.erich.com_CNAME, 2m30s elapsed)[0m[0m
+[0m[1maws_route53_record.chefserver: Still modifying... (ID: ZBVO8OQHTFSNO_chefserver.erich.com_CNAME, 2m30s elapsed)[0m[0m
+[0m[1maws_route53_record.chefworkstation: Still modifying... (ID: ZBVO8OQHTFSNO_chefworkstation.erich.com_CNAME, 2m30s elapsed)[0m[0m
+[0m[1maws_route53_record.apache: Still modifying... (ID: ZBVO8OQHTFSNO_apache.erich.com_CNAME, 2m40s elapsed)[0m[0m
+[0m[1maws_route53_record.chefworkstation: Still modifying... (ID: ZBVO8OQHTFSNO_chefworkstation.erich.com_CNAME, 2m40s elapsed)[0m[0m
+[0m[1maws_route53_record.chefserver: Still modifying... (ID: ZBVO8OQHTFSNO_chefserver.erich.com_CNAME, 2m40s elapsed)[0m[0m
+[0m[1maws_route53_record.apache: Still modifying... (ID: ZBVO8OQHTFSNO_apache.erich.com_CNAME, 2m50s elapsed)[0m[0m
+[0m[1maws_route53_record.chefworkstation: Still modifying... (ID: ZBVO8OQHTFSNO_chefworkstation.erich.com_CNAME, 2m50s elapsed)[0m[0m
+[0m[1maws_route53_record.chefserver: Still modifying... (ID: ZBVO8OQHTFSNO_chefserver.erich.com_CNAME, 2m50s elapsed)[0m[0m
+[0m[1maws_route53_record.apache: Modifications complete after 2m52s (ID: ZBVO8OQHTFSNO_apache.erich.com_CNAME)[0m[0m
+[0m[1maws_route53_record.chefserver: Modifications complete after 2m54s (ID: ZBVO8OQHTFSNO_chefserver.erich.com_CNAME)[0m[0m
+[0m[1maws_route53_record.chefworkstation: Modifications complete after 2m56s (ID: ZBVO8OQHTFSNO_chefworkstation.erich.com_CNAME)[0m[0m

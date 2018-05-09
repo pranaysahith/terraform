@@ -1,14 +1,6 @@
 
+ami-838b53fc"
 
-
-  provisioner "file" {
-    source      = "/vol1/mytest.txt"
-    destination = "/tmp/mytest.txt"
-  }
-  provisioner "file" {
-    source      = "/vol1/deployments"
-    destination = "/tmp/deployments"
-  }
 
 resource "aws_instance" "chefserver2" {
   ami                         = "${lookup(var.CentosLinux, var.region)}"
@@ -50,7 +42,6 @@ resource "aws_instance" "chefserver2" {
   sh /tmp/deployments/ChefMaster/ChefServerInstall_RedHat.sh
 EOF
 }
-
 
 resource "aws_instance" "chefserver" {
   ami                         = "${lookup(var.AmiLinux, var.region)}"
@@ -149,17 +140,7 @@ resource "aws_instance" "apache01" {
   chmod +x /tmp/git_ssh
   export GIT_SSH="/tmp/git_ssh"
   git clone git@github.com:ejbest/deployments.git
-  retry() {
-    for i in {1..15}; do
-      eval $@ && return_status=$? && break || return_status=$? && sleep 30;
-    done
-    return $${return_status}
-  }
-  cd $${HOME}
-  retry /tmp/deployments/ChefNode/ChefNodeInstall.sh
-  yum install -y httpd6 php56-mysqlnd
-  service httpd start
-  chkconfig httpd on
+
   EOF
 }
 

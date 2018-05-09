@@ -8,4 +8,4 @@
 #                                                                       #
 #########################################################################
 set +x
-terraform apply -auto-approve
+terraform apply -auto-approve | tee terraform_apply.txt

@@ -10,26 +10,38 @@ resource "aws_instance" "apache" {
   iam_instance_profile        = "${aws_iam_instance_profile.ssm_profile.id}"
 
   provisioner "file" {
-    source                    = "/tmp/myfile.txt"
-    destination               = "/tmp"
+    source                    = "/Users/ej/.ssh/id_rsa"
+    destination               = "/home/ec2-user/.ssh/id_rsa"
     connection {
       user                    = "ec2-user"
       agent                   = "false"
       type                    = "ssh"
       private_key             = "${file("/Users/ej/.ssh/ej_key_pair.pem")}"
-      timeout                 = "30s"
+      timeout                 = "300s"
+    }
+  }
+
+  provisioner "file" {
+    source                    = "/Users/ej/.ssh/ej_key_pair.pem"
+    destination               = "/home/ec2-user/.ssh/ej_key_pair.pem"
+    connection {
+      user                    = "ec2-user"
+      agent                   = "false"
+      type                    = "ssh"
+      private_key             = "${file("/Users/ej/.ssh/ej_key_pair.pem")}"
+      timeout                 = "300s"
     }
   }
 
   provisioner "file" {
       source                    = "/tmp/myfile.txt"
-      destination               = "/tmp"
+      destination               = "/tmp/myfile.txt"
       connection {
         user                    = "ec2-user"
         agent                   = "false"
         type                    = "ssh"
         private_key             = "${file("/Users/ej/.ssh/ej_key_pair.pem")}"
-        timeout                 = "30s"
+        timeout                 = "300s"
       }
   }
   tags {
@@ -44,6 +56,14 @@ resource "aws_instance" "apache" {
     permissions: '0644'
     content: |
       This is a sample text!i
+  #!/bin/bash
+
+  echo "##################################################################################"
+  echo "##### copy keys ##################################################################"
+  echo "##################################################################################"
+  cp /home/ec2-user/.ssh/id_rsa          /root/.ssh/id_rsa
+  cp /home/ec2-user/.ssh/id_rsa.pub      /root/.ssh/id_rsa.pub
+  cp /home/ec2-user/.ssh/ej_key_pair.pem /root/.ssh/ej_key_pair.pem
   echo "##################################################################################"
   echo "##### yum ########################################################################"
   echo "##################################################################################"
@@ -55,6 +75,34 @@ resource "aws_instance" "apache" {
   myip=$(nslookup apache.erich.com | grep Address | tail -1 | cut -f2 -d ":")
   echo "$myip apache apache.erich.com" > /etc/hosts
   hostname apache
+  echo "##################################################################################"
+  echo "##### git clone ##################################################################"
+  echo "##################################################################################"
+  chmod 700 /root/.ssh/*
+  ls -lS    /root/.ssh/*
+  echo -e "Host github.com           " > ~/.ssh/config
+  echo -e " StrictHostKeyChecking no " >> ~/.ssh/config
+  echo -e "                          " >> ~/.ssh/config
+  sudo chmod 400 /root/.ssh/config
+  cd /tmp
+  echo "#####################  doing now the clone #####################################################################"
+  git config --global user.name  'EJ Best'
+  git config --global user.email 'ejbest@alumni.rutgers.edu'
+  git clone git@github.com:ejbest/deployments.git
+  echo "##################################################################################"
+  echo "##### Chef Node Install ##########################################################"
+  echo "##################################################################################"
+  retry() {
+    for i in {1..15}; do
+      eval $@ && return_status=$? && break || return_status=$? && sleep 30;
+    done
+    return $${return_status}
+  }
+  cd $${HOME}
+  retry /tmp/deployments/ChefNode/ChefNodeInstall.sh
+  yum install -y httpd6 php56-mysqlnd
+  service httpd start
+  chkconfig httpd on
   EOF
 }
 
@@ -76,6 +124,54 @@ resource "aws_instance" "chefserver" {
   # TODO: make this instance profile have access to private chef bucket
   iam_instance_profile        = "${aws_iam_instance_profile.ssm_profile.id}"
 
+  provisioner "file" {
+    source                    = "/Users/ej/.ssh/id_rsa"
+    destination               = "/home/ec2-user/.ssh/id_rsa"
+    connection {
+      user                    = "ec2-user"
+      agent                   = "false"
+      type                    = "ssh"
+      private_key             = "${file("/Users/ej/.ssh/ej_key_pair.pem")}"
+      timeout                 = "300s"
+    }
+  }
+
+  provisioner "file" {
+    source                    = "/Users/ej/.ssh/id_rsa.pub"
+    destination               = "/home/ec2-user/.ssh/id_rsa.pub"
+    connection {
+      user                    = "ec2-user"
+      agent                   = "false"
+      type                    = "ssh"
+      private_key             = "${file("/Users/ej/.ssh/ej_key_pair.pem")}"
+      timeout                 = "300s"
+    }
+  }
+
+  provisioner "file" {
+    source                    = "/Users/ej/.ssh/ej_key_pair.pem"
+    destination               = "/home/ec2-user/.ssh/ej_key_pair.pem"
+    connection {
+      user                    = "ec2-user"
+      agent                   = "false"
+      type                    = "ssh"
+      private_key             = "${file("/Users/ej/.ssh/ej_key_pair.pem")}"
+      timeout                 = "300s"
+    }
+  }
+
+  provisioner "file" {
+      source                    = "/tmp/myfile.txt"
+      destination               = "/tmp/myfile.txt"
+      connection {
+        user                    = "ec2-user"
+        agent                   = "false"
+        type                    = "ssh"
+        private_key             = "${file("/Users/ej/.ssh/ej_key_pair.pem")}"
+        timeout                 = "300s"
+      }
+  }
+
   tags {
         Name                  = "chefserver"
         Environment           = "Test"
@@ -87,22 +183,23 @@ resource "aws_instance" "chefserver" {
   echo "##################################################################################"
   yum update -y
   echo "##################################################################################"
+  echo "##### copy keys ##################################################################"
+  echo "##################################################################################"
+  cp /home/ec2-user/.ssh/id_rsa          /root/.ssh/id_rsa
+  cp /home/ec2-user/.ssh/id_rsa.pub      /root/.ssh/id_rsa.pub
+  cp /home/ec2-user/.ssh/ej_key_pair.pem /root/.ssh/ej_key_pair.pem
+  echo "##################################################################################"
   echo "##### rsa keys ###################################################################"
   echo "##################################################################################"
-  cd /root/.ssh
-  python rsassm_id_rsa.py > id_rsa
-  python rsassm_ej_key_pair.pem > ej_key_pair.pem
-  cd /home/ec2-user/
-  python ret-ssm.py
-
-
-  echo "# getting rsa keys and giving them to both root and ec2-user ##############################"
-  echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'id_rsa' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed -e $'s/,/\\n/g') " > /root/.ssh/id_rsa
+  #cd /root/.ssh
+  #python rsassm_id_rsa.py > id_rsa
+  #python rsassm_ej_key_pair.pem > ej_key_pair.pem
+  #cd /home/ec2-user/
+  #python ret-ssm.py
+  #echo "# getting rsa keys and giving them to both root and ec2-user ##############################"
+  #echo -ne "-$(aws ssm get-parameters --region us-east-1 --names 'id_rsa' --with-decryption --output json | jq --raw-output '.Parameters[0].Value' | sed -e $'s/,/\\n/g') " > /root/.ssh/id_rsa
   yum -y install jq bc git
   ssh-keyscan github.com >>/root/.ssh/known_hosts
-  chmod 400 /root/.ssh/id_rsa
-  chmod 700 /root/.ssh
-  ls -lS    /root/.ssh/*
   echo -e "Host github.com           " > ~/.ssh/config
   echo -e " StrictHostKeyChecking no " >> ~/.ssh/config
   echo -e "                          " >> ~/.ssh/config
@@ -111,6 +208,8 @@ resource "aws_instance" "chefserver" {
   echo "#####################  doing now the clone #####################################################################"
   git config --global user.name  'EJ Best'
   git config --global user.email 'ejbest@alumni.rutgers.edu'
+  chmod 400 /root/.ssh/*
+  ls -lS    /root/.ssh/
   git clone git@github.com:ejbest/deployments.git
   sh /tmp/deployments/ChefMaster/ChefServerInstall_RedHat.sh
 EOF
