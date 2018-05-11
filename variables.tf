@@ -28,7 +28,7 @@ variable "CentosLinux" {
 variable "Amiwindows" {
   type = "map"
   default = {
-    us-east-1 = "ami-00dd3069"
+    us-east-1 = "ami-3633b149"
     us-west-2 = "ami-f3dcbc8b"
     eu-west-1 = "ami-d0d0c3b0"
     us-east-2 = "ami-5984b43c"
