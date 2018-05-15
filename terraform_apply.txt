@@ -1,5 +1,14 @@
 [0m[1mdata.aws_iam_policy.ReadOnlyAccess: Refreshing state...[0m
 [0m[1mdata.aws_availability_zones.available: Refreshing state...[0m
+[0m[1maws_iam_role.ssm_role: Creating...[0m
+  arn:                   "" => "<computed>"
+  assume_role_policy:    "" => "{\n  \t  \"Version\": \"2012-10-17\",\n  \t  \"Statement\": [\n      {\t      \"Action\": \"sts:AssumeRole\",\n        \"Principal\": {\n         \"Service\": \"ec2.amazonaws.com\"\n       },\n       \"Effect\": \"Allow\",\n      \"Sid\": \"\"\n      }\n    ]\n  }\n"
+  create_date:           "" => "<computed>"
+  force_detach_policies: "" => "false"
+  max_session_duration:  "" => "3600"
+  name:                  "" => "ssm_role"
+  path:                  "" => "/"
+  unique_id:             "" => "<computed>"[0m
 [0m[1maws_eip.forNat: Creating...[0m
   allocation_id:     "" => "<computed>"
   association_id:    "" => "<computed>"
@@ -26,15 +35,6 @@
   main_route_table_id:              "" => "<computed>"
   tags.%:                           "" => "1"
   tags.Name:                        "" => "My terraform vpc"[0m
-[0m[1maws_iam_role.ssm_role: Creating...[0m
-  arn:                   "" => "<computed>"
-  assume_role_policy:    "" => "{\n  \t  \"Version\": \"2012-10-17\",\n  \t  \"Statement\": [\n      {\t      \"Action\": \"sts:AssumeRole\",\n        \"Principal\": {\n         \"Service\": \"ec2.amazonaws.com\"\n       },\n       \"Effect\": \"Allow\",\n      \"Sid\": \"\"\n      }\n    ]\n  }\n"
-  create_date:           "" => "<computed>"
-  force_detach_policies: "" => "false"
-  max_session_duration:  "" => "3600"
-  name:                  "" => "ssm_role"
-  path:                  "" => "/"
-  unique_id:             "" => "<computed>"[0m
 [0m[1maws_iam_role.ssm_role: Creation complete after 1s (ID: ssm_role)[0m[0m
 [0m[1maws_iam_instance_profile.ssm_profile: Creating...[0m
   arn:         "" => "<computed>"
@@ -44,19 +44,12 @@
   role:        "" => "ssm_role"
   roles.#:     "" => "<computed>"
   unique_id:   "" => "<computed>"[0m
-[0m[1maws_eip.forNat: Creation complete after 1s (ID: eipalloc-b76a9dbf)[0m[0m
-[0m[1maws_vpc.terraformmain: Still creating... (10s elapsed)[0m[0m
-[0m[1maws_vpc.terraformmain: Creation complete after 12s (ID: vpc-fa1c3581)[0m[0m
-[0m[1maws_subnet.PublicAZB: Creating...[0m
-  assign_ipv6_address_on_creation: "" => "false"
-  availability_zone:               "" => "us-east-1b"
-  cidr_block:                      "" => "172.28.1.0/24"
-  ipv6_cidr_block:                 "" => "<computed>"
-  ipv6_cidr_block_association_id:  "" => "<computed>"
-  map_public_ip_on_launch:         "" => "false"
-  tags.%:                          "" => "1"
-  tags.Name:                       "" => "PublicAZB"
-  vpc_id:                          "" => "vpc-fa1c3581"[0m
+[0m[1maws_eip.forNat: Creation complete after 1s (ID: eipalloc-d221d7da)[0m[0m
+[0m[1maws_vpc.terraformmain: Creation complete after 4s (ID: vpc-43dbf238)[0m[0m
+[0m[1maws_internet_gateway.gw: Creating...[0m
+  tags.%:    "0" => "1"
+  tags.Name: "" => "internet gw terraform generated"
+  vpc_id:    "" => "vpc-43dbf238"[0m
 [0m[1maws_subnet.PublicAZA: Creating...[0m
   assign_ipv6_address_on_creation: "" => "false"
   availability_zone:               "" => "us-east-1a"
@@ -66,7 +59,7 @@
   map_public_ip_on_launch:         "" => "false"
   tags.%:                          "" => "1"
   tags.Name:                       "" => "PublicAZA"
-  vpc_id:                          "" => "vpc-fa1c3581"[0m
+  vpc_id:                          "" => "vpc-43dbf238"[0m
 [0m[1maws_network_acl.all: Creating...[0m
   egress.#:                           "" => "1"
   egress.2943206146.action:           "" => "allow"
@@ -91,49 +84,17 @@
   subnet_ids.#:                       "" => "<computed>"
   tags.%:                             "" => "1"
   tags.Name:                          "" => "open acl"
-  vpc_id:                             "" => "vpc-fa1c3581"[0m
-[0m[1maws_internet_gateway.gw: Creating...[0m
-  tags.%:    "0" => "1"
-  tags.Name: "" => "internet gw terraform generated"
-  vpc_id:    "" => "vpc-fa1c3581"[0m
-[0m[1maws_security_group.my_db_sg: Creating...[0m
-  arn:                                   "" => "<computed>"
-  description:                           "" => "RDS  servers (terraform-managed)"
-  egress.#:                              "" => "1"
-  egress.482069346.cidr_blocks.#:        "" => "1"
-  egress.482069346.cidr_blocks.0:        "" => "0.0.0.0/0"
-  egress.482069346.description:          "" => ""
-  egress.482069346.from_port:            "" => "0"
-  egress.482069346.ipv6_cidr_blocks.#:   "" => "0"
-  egress.482069346.prefix_list_ids.#:    "" => "0"
-  egress.482069346.protocol:             "" => "-1"
-  egress.482069346.security_groups.#:    "" => "0"
-  egress.482069346.self:                 "" => "false"
-  egress.482069346.to_port:              "" => "0"
-  ingress.#:                             "" => "1"
-  ingress.1163740523.cidr_blocks.#:      "" => "1"
-  ingress.1163740523.cidr_blocks.0:      "" => "0.0.0.0/0"
-  ingress.1163740523.description:        "" => ""
-  ingress.1163740523.from_port:          "" => "3306"
-  ingress.1163740523.ipv6_cidr_blocks.#: "" => "0"
-  ingress.1163740523.protocol:           "" => "tcp"
-  ingress.1163740523.security_groups.#:  "" => "0"
-  ingress.1163740523.self:               "" => "false"
-  ingress.1163740523.to_port:            "" => "3306"
-  name:                                  "" => "my_db_sg"
-  owner_id:                              "" => "<computed>"
-  revoke_rules_on_delete:                "" => "false"
-  vpc_id:                                "" => "vpc-fa1c3581"[0m
-[0m[1maws_subnet.PrivateAZA: Creating...[0m
+  vpc_id:                             "" => "vpc-43dbf238"[0m
+[0m[1maws_subnet.PublicAZB: Creating...[0m
   assign_ipv6_address_on_creation: "" => "false"
   availability_zone:               "" => "us-east-1b"
-  cidr_block:                      "" => "172.28.3.0/24"
+  cidr_block:                      "" => "172.28.1.0/24"
   ipv6_cidr_block:                 "" => "<computed>"
   ipv6_cidr_block_association_id:  "" => "<computed>"
   map_public_ip_on_launch:         "" => "false"
   tags.%:                          "" => "1"
   tags.Name:                       "" => "PublicAZB"
-  vpc_id:                          "" => "vpc-fa1c3581"[0m
+  vpc_id:                          "" => "vpc-43dbf238"[0m
 [0m[1maws_security_group.FrontEnd: Creating...[0m
   arn:                                   "" => "<computed>"
   description:                           "" => "ONLY HTTP CONNECTION IN-BOUND"
@@ -199,448 +160,701 @@
   revoke_rules_on_delete:                "" => "false"
   tags.%:                                "" => "1"
   tags.Name:                             "" => "FrontEnd"
-  vpc_id:                                "" => "vpc-fa1c3581"[0m
-[0m[1maws_internet_gateway.gw: Creation complete after 2s (ID: igw-2aef9f52)[0m[0m
-[0m[1maws_route_table.public: Creating...[0m
-  propagating_vgws.#:                         "" => "<computed>"
-  route.#:                                    "" => "1"
-  route.1108498645.cidr_block:                "" => "0.0.0.0/0"
-  route.1108498645.egress_only_gateway_id:    "" => ""
-  route.1108498645.gateway_id:                "" => "igw-2aef9f52"
-  route.1108498645.instance_id:               "" => ""
-  route.1108498645.ipv6_cidr_block:           "" => ""
-  route.1108498645.nat_gateway_id:            "" => ""
-  route.1108498645.network_interface_id:      "" => ""
-  route.1108498645.vpc_peering_connection_id: "" => ""
-  tags.%:                                     "" => "1"
-  tags.Name:                                  "" => "Public"
-  vpc_id:                                     "" => "vpc-fa1c3581"[0m
-[0m[1maws_network_acl.all: Creation complete after 2s (ID: acl-6153dc1b)[0m[0m
-[0m[1maws_route_table.public: Creation complete after 1s (ID: rtb-8c5b46f0)[0m[0m
-[0m[1maws_subnet.PublicAZB: Creation complete after 3s (ID: subnet-00dc222e)[0m[0m
-[0m[1maws_route_table_association.PublicAZB: Creating...[0m
-  route_table_id: "" => "rtb-8c5b46f0"
-  subnet_id:      "" => "subnet-00dc222e"[0m
-[0m[1maws_route_table_association.PublicAZB: Creation complete after 0s (ID: rtbassoc-8ba0e6f4)[0m[0m
-[0m[1maws_subnet.PrivateAZA: Creation complete after 3s (ID: subnet-ebe21cc5)[0m[0m
-[0m[1maws_security_group.my_db_sg: Creation complete after 4s (ID: sg-638c252b)[0m[0m
-[0m[1maws_security_group.FrontEnd: Creation complete after 5s (ID: sg-208d2468)[0m[0m
-[0m[1maws_security_group.Backend: Creating...[0m
-  arn:                                           "" => "<computed>"
-  description:                                   "" => "ONLY tcp CONNECTION INBOUND"
-  egress.#:                                      "" => "1"
-  egress.482069346.cidr_blocks.#:                "" => "1"
-  egress.482069346.cidr_blocks.0:                "" => "0.0.0.0/0"
-  egress.482069346.description:                  "" => ""
-  egress.482069346.from_port:                    "" => "0"
-  egress.482069346.ipv6_cidr_blocks.#:           "" => "0"
-  egress.482069346.prefix_list_ids.#:            "" => "0"
-  egress.482069346.protocol:                     "" => "-1"
-  egress.482069346.security_groups.#:            "" => "0"
-  egress.482069346.self:                         "" => "false"
-  egress.482069346.to_port:                      "" => "0"
-  ingress.#:                                     "" => "3"
-  ingress.1963598568.cidr_blocks.#:              "" => "0"
-  ingress.1963598568.description:                "" => ""
-  ingress.1963598568.from_port:                  "" => "3306"
-  ingress.1963598568.ipv6_cidr_blocks.#:         "" => "0"
-  ingress.1963598568.protocol:                   "" => "tcp"
-  ingress.1963598568.security_groups.#:          "" => "1"
-  ingress.1963598568.security_groups.2139885169: "" => "sg-208d2468"
-  ingress.1963598568.self:                       "" => "false"
-  ingress.1963598568.to_port:                    "" => "3306"
-  ingress.2223400681.cidr_blocks.#:              "" => "1"
-  ingress.2223400681.cidr_blocks.0:              "" => "0.0.0.0/0"
-  ingress.2223400681.description:                "" => ""
-  ingress.2223400681.from_port:                  "" => "3389"
-  ingress.2223400681.ipv6_cidr_blocks.#:         "" => "0"
-  ingress.2223400681.protocol:                   "" => "tcp"
-  ingress.2223400681.security_groups.#:          "" => "0"
-  ingress.2223400681.self:                       "" => "false"
-  ingress.2223400681.to_port:                    "" => "3389"
-  ingress.2541437006.cidr_blocks.#:              "" => "1"
-  ingress.2541437006.cidr_blocks.0:              "" => "0.0.0.0/0"
-  ingress.2541437006.description:                "" => ""
-  ingress.2541437006.from_port:                  "" => "22"
-  ingress.2541437006.ipv6_cidr_blocks.#:         "" => "0"
-  ingress.2541437006.protocol:                   "" => "tcp"
-  ingress.2541437006.security_groups.#:          "" => "0"
-  ingress.2541437006.self:                       "" => "false"
-  ingress.2541437006.to_port:                    "" => "22"
-  name:                                          "" => "Backend"
-  owner_id:                                      "" => "<computed>"
-  revoke_rules_on_delete:                        "" => "false"
-  tags.%:                                        "" => "1"
-  tags.Name:                                     "" => "Backend"
-  vpc_id:                                        "" => "vpc-fa1c3581"[0m
-[0m[1maws_subnet.PublicAZA: Creation complete after 6s (ID: subnet-27529340)[0m[0m
-[0m[1maws_route_table_association.PublicAZA: Creating...[0m
-  route_table_id: "" => "rtb-8c5b46f0"
-  subnet_id:      "" => "subnet-27529340"[0m
+  vpc_id:                                "" => "vpc-43dbf238"[0m
+[0m[1maws_security_group.my_db_sg: Creating...[0m
+  arn:                                   "" => "<computed>"
+  description:                           "" => "RDS  servers (terraform-managed)"
+  egress.#:                              "" => "1"
+  egress.482069346.cidr_blocks.#:        "" => "1"
+  egress.482069346.cidr_blocks.0:        "" => "0.0.0.0/0"
+  egress.482069346.description:          "" => ""
+  egress.482069346.from_port:            "" => "0"
+  egress.482069346.ipv6_cidr_blocks.#:   "" => "0"
+  egress.482069346.prefix_list_ids.#:    "" => "0"
+  egress.482069346.protocol:             "" => "-1"
+  egress.482069346.security_groups.#:    "" => "0"
+  egress.482069346.self:                 "" => "false"
+  egress.482069346.to_port:              "" => "0"
+  ingress.#:                             "" => "1"
+  ingress.1163740523.cidr_blocks.#:      "" => "1"
+  ingress.1163740523.cidr_blocks.0:      "" => "0.0.0.0/0"
+  ingress.1163740523.description:        "" => ""
+  ingress.1163740523.from_port:          "" => "3306"
+  ingress.1163740523.ipv6_cidr_blocks.#: "" => "0"
+  ingress.1163740523.protocol:           "" => "tcp"
+  ingress.1163740523.security_groups.#:  "" => "0"
+  ingress.1163740523.self:               "" => "false"
+  ingress.1163740523.to_port:            "" => "3306"
+  name:                                  "" => "my_db_sg"
+  owner_id:                              "" => "<computed>"
+  revoke_rules_on_delete:                "" => "false"
+  vpc_id:                                "" => "vpc-43dbf238"[0m
+[0m[1maws_subnet.PrivateAZA: Creating...[0m
+  assign_ipv6_address_on_creation: "" => "false"
+  availability_zone:               "" => "us-east-1b"
+  cidr_block:                      "" => "172.28.3.0/24"
+  ipv6_cidr_block:                 "" => "<computed>"
+  ipv6_cidr_block_association_id:  "" => "<computed>"
+  map_public_ip_on_launch:         "" => "false"
+  tags.%:                          "" => "1"
+  tags.Name:                       "" => "PublicAZB"
+  vpc_id:                          "" => "vpc-43dbf238"[0m
+[0m[1maws_subnet.PrivateAZA: Creation complete after 1s (ID: subnet-ee2cd2c0)[0m[0m
+[0m[1maws_subnet.PublicAZB: Creation complete after 1s (ID: subnet-b632cc98)[0m[0m
+[0m[1maws_subnet.PublicAZA: Creation complete after 1s (ID: subnet-146eaf73)[0m[0m
 [0m[1maws_db_subnet_group.dbsubnet: Creating...[0m
   arn:                   "" => "<computed>"
   description:           "" => "Managed by Terraform"
   name:                  "" => "<computed>"
   name_prefix:           "" => "<computed>"
   subnet_ids.#:          "" => "2"
-  subnet_ids.1632744185: "" => "subnet-00dc222e"
-  subnet_ids.3219806696: "" => "subnet-27529340"[0m
+  subnet_ids.3670076556: "" => "subnet-146eaf73"
+  subnet_ids.3919279502: "" => "subnet-b632cc98"[0m
+[0m[1maws_internet_gateway.gw: Creation complete after 1s (ID: igw-161d6e6e)[0m[0m
 [0m[1maws_nat_gateway.PublicAZA: Creating...[0m
-  allocation_id:        "" => "eipalloc-b76a9dbf"
+  allocation_id:        "" => "eipalloc-d221d7da"
   network_interface_id: "" => "<computed>"
   private_ip:           "" => "<computed>"
   public_ip:            "" => "<computed>"
-  subnet_id:            "" => "subnet-27529340"[0m
+  subnet_id:            "" => "subnet-146eaf73"[0m
+[0m[1maws_route_table.public: Creating...[0m
+  propagating_vgws.#:                         "" => "<computed>"
+  route.#:                                    "" => "1"
+  route.2380276487.cidr_block:                "" => "0.0.0.0/0"
+  route.2380276487.egress_only_gateway_id:    "" => ""
+  route.2380276487.gateway_id:                "" => "igw-161d6e6e"
+  route.2380276487.instance_id:               "" => ""
+  route.2380276487.ipv6_cidr_block:           "" => ""
+  route.2380276487.nat_gateway_id:            "" => ""
+  route.2380276487.network_interface_id:      "" => ""
+  route.2380276487.vpc_peering_connection_id: "" => ""
+  tags.%:                                     "" => "1"
+  tags.Name:                                  "" => "Public"
+  vpc_id:                                     "" => "vpc-43dbf238"[0m
+[0m[1maws_security_group.FrontEnd: Creation complete after 3s (ID: sg-929f37da)[0m[0m
 [0m[1maws_instance.windows: Creating...[0m
-  ami:                               "" => "ami-3633b149"
-  associate_public_ip_address:       "" => "true"
-  availability_zone:                 "" => "<computed>"
-  ebs_block_device.#:                "" => "<computed>"
-  ephemeral_block_device.#:          "" => "<computed>"
-  get_password_data:                 "" => "false"
-  instance_state:                    "" => "<computed>"
-  instance_type:                     "" => "t2.micro"
-  ipv6_address_count:                "" => "<computed>"
-  ipv6_addresses.#:                  "" => "<computed>"
-  key_name:                          "" => "ej_key_pair"
-  network_interface.#:               "" => "<computed>"
-  network_interface_id:              "" => "<computed>"
-  password_data:                     "" => "<computed>"
-  placement_group:                   "" => "<computed>"
-  primary_network_interface_id:      "" => "<computed>"
-  private_dns:                       "" => "<computed>"
-  private_ip:                        "" => "<computed>"
-  public_dns:                        "" => "<computed>"
-  public_ip:                         "" => "<computed>"
-  root_block_device.#:               "" => "<computed>"
-  security_groups.#:                 "" => "<computed>"
-  source_dest_check:                 "" => "true"
-  subnet_id:                         "" => "subnet-27529340"
-  tags.%:                            "" => "1"
-  tags.Name:                         "" => "windows"
-  tenancy:                           "" => "<computed>"
-  volume_tags.%:                     "" => "<computed>"
-  vpc_security_group_ids.#:          "" => "1"
-  vpc_security_group_ids.2139885169: "" => "sg-208d2468"[0m
-[0m[1maws_route_table_association.PublicAZA: Creation complete after 0s (ID: rtbassoc-3ca4e243)[0m[0m
-[0m[1maws_db_subnet_group.dbsubnet: Creation complete after 1s (ID: terraform-20180515124355618800000001)[0m[0m
+  ami:                              "" => "ami-3633b149"
+  associate_public_ip_address:      "" => "true"
+  availability_zone:                "" => "<computed>"
+  ebs_block_device.#:               "" => "<computed>"
+  ephemeral_block_device.#:         "" => "<computed>"
+  get_password_data:                "" => "false"
+  instance_state:                   "" => "<computed>"
+  instance_type:                    "" => "t2.micro"
+  ipv6_address_count:               "" => "<computed>"
+  ipv6_addresses.#:                 "" => "<computed>"
+  key_name:                         "" => "ej_key_pair"
+  network_interface.#:              "" => "<computed>"
+  network_interface_id:             "" => "<computed>"
+  password_data:                    "" => "<computed>"
+  placement_group:                  "" => "<computed>"
+  primary_network_interface_id:     "" => "<computed>"
+  private_dns:                      "" => "<computed>"
+  private_ip:                       "" => "<computed>"
+  public_dns:                       "" => "<computed>"
+  public_ip:                        "" => "<computed>"
+  root_block_device.#:              "" => "<computed>"
+  security_groups.#:                "" => "<computed>"
+  source_dest_check:                "" => "true"
+  subnet_id:                        "" => "subnet-146eaf73"
+  tags.%:                           "" => "1"
+  tags.Name:                        "" => "windows"
+  tenancy:                          "" => "<computed>"
+  volume_tags.%:                    "" => "<computed>"
+  vpc_security_group_ids.#:         "" => "1"
+  vpc_security_group_ids.606440561: "" => "sg-929f37da"[0m
+[0m[1maws_security_group.Backend: Creating...[0m
+  arn:                                          "" => "<computed>"
+  description:                                  "" => "ONLY tcp CONNECTION INBOUND"
+  egress.#:                                     "" => "1"
+  egress.482069346.cidr_blocks.#:               "" => "1"
+  egress.482069346.cidr_blocks.0:               "" => "0.0.0.0/0"
+  egress.482069346.description:                 "" => ""
+  egress.482069346.from_port:                   "" => "0"
+  egress.482069346.ipv6_cidr_blocks.#:          "" => "0"
+  egress.482069346.prefix_list_ids.#:           "" => "0"
+  egress.482069346.protocol:                    "" => "-1"
+  egress.482069346.security_groups.#:           "" => "0"
+  egress.482069346.self:                        "" => "false"
+  egress.482069346.to_port:                     "" => "0"
+  ingress.#:                                    "" => "3"
+  ingress.1968278378.cidr_blocks.#:             "" => "0"
+  ingress.1968278378.description:               "" => ""
+  ingress.1968278378.from_port:                 "" => "3306"
+  ingress.1968278378.ipv6_cidr_blocks.#:        "" => "0"
+  ingress.1968278378.protocol:                  "" => "tcp"
+  ingress.1968278378.security_groups.#:         "" => "1"
+  ingress.1968278378.security_groups.606440561: "" => "sg-929f37da"
+  ingress.1968278378.self:                      "" => "false"
+  ingress.1968278378.to_port:                   "" => "3306"
+  ingress.2223400681.cidr_blocks.#:             "" => "1"
+  ingress.2223400681.cidr_blocks.0:             "" => "0.0.0.0/0"
+  ingress.2223400681.description:               "" => ""
+  ingress.2223400681.from_port:                 "" => "3389"
+  ingress.2223400681.ipv6_cidr_blocks.#:        "" => "0"
+  ingress.2223400681.protocol:                  "" => "tcp"
+  ingress.2223400681.security_groups.#:         "" => "0"
+  ingress.2223400681.self:                      "" => "false"
+  ingress.2223400681.to_port:                   "" => "3389"
+  ingress.2541437006.cidr_blocks.#:             "" => "1"
+  ingress.2541437006.cidr_blocks.0:             "" => "0.0.0.0/0"
+  ingress.2541437006.description:               "" => ""
+  ingress.2541437006.from_port:                 "" => "22"
+  ingress.2541437006.ipv6_cidr_blocks.#:        "" => "0"
+  ingress.2541437006.protocol:                  "" => "tcp"
+  ingress.2541437006.security_groups.#:         "" => "0"
+  ingress.2541437006.self:                      "" => "false"
+  ingress.2541437006.to_port:                   "" => "22"
+  name:                                         "" => "Backend"
+  owner_id:                                     "" => "<computed>"
+  revoke_rules_on_delete:                       "" => "false"
+  tags.%:                                       "" => "1"
+  tags.Name:                                    "" => "Backend"
+  vpc_id:                                       "" => "vpc-43dbf238"[0m
+[0m[1maws_route_table.public: Creation complete after 2s (ID: rtb-0e392472)[0m[0m
+[0m[1maws_route_table_association.PublicAZB: Creating...[0m
+  route_table_id: "" => "rtb-0e392472"
+  subnet_id:      "" => "subnet-b632cc98"[0m
+[0m[1maws_route_table_association.PublicAZA: Creating...[0m
+  route_table_id: "" => "rtb-0e392472"
+  subnet_id:      "" => "subnet-146eaf73"[0m
+[0m[1maws_db_subnet_group.dbsubnet: Creation complete after 2s (ID: terraform-20180515152336157400000001)[0m[0m
 [0m[1maws_db_instance.default: Creating...[0m
-  address:                           "" => "<computed>"
-  allocated_storage:                 "" => "10"
-  apply_immediately:                 "" => "<computed>"
-  arn:                               "" => "<computed>"
-  auto_minor_version_upgrade:        "" => "true"
-  availability_zone:                 "" => "<computed>"
-  backup_retention_period:           "" => "<computed>"
-  backup_window:                     "" => "<computed>"
-  ca_cert_identifier:                "" => "<computed>"
-  character_set_name:                "" => "<computed>"
-  copy_tags_to_snapshot:             "" => "false"
-  db_subnet_group_name:              "" => "terraform-20180515124355618800000001"
-  endpoint:                          "" => "<computed>"
-  engine:                            "" => "mysql"
-  engine_version:                    "" => "5.7"
-  hosted_zone_id:                    "" => "<computed>"
-  identifier:                        "" => "<computed>"
-  identifier_prefix:                 "" => "<computed>"
-  instance_class:                    "" => "db.t2.micro"
-  kms_key_id:                        "" => "<computed>"
-  license_model:                     "" => "<computed>"
-  maintenance_window:                "" => "<computed>"
-  monitoring_interval:               "" => "0"
-  monitoring_role_arn:               "" => "<computed>"
-  multi_az:                          "" => "<computed>"
-  name:                              "" => "ejs"
-  option_group_name:                 "" => "<computed>"
-  parameter_group_name:              "" => "default.mysql5.7"
-  password:                          "<sensitive>" => "<sensitive>"
-  port:                              "" => "<computed>"
-  publicly_accessible:               "" => "false"
-  replicas.#:                        "" => "<computed>"
-  resource_id:                       "" => "<computed>"
-  skip_final_snapshot:               "" => "true"
-  status:                            "" => "<computed>"
-  storage_type:                      "" => "gp2"
-  timezone:                          "" => "<computed>"
-  username:                          "" => "sa"
-  vpc_security_group_ids.#:          "" => "1"
-  vpc_security_group_ids.2139885169: "" => "sg-208d2468"[0m
-[0m[1maws_security_group.Backend: Creation complete after 3s (ID: sg-19812851)[0m[0m
+  address:                          "" => "<computed>"
+  allocated_storage:                "" => "10"
+  apply_immediately:                "" => "<computed>"
+  arn:                              "" => "<computed>"
+  auto_minor_version_upgrade:       "" => "true"
+  availability_zone:                "" => "<computed>"
+  backup_retention_period:          "" => "<computed>"
+  backup_window:                    "" => "<computed>"
+  ca_cert_identifier:               "" => "<computed>"
+  character_set_name:               "" => "<computed>"
+  copy_tags_to_snapshot:            "" => "false"
+  db_subnet_group_name:             "" => "terraform-20180515152336157400000001"
+  endpoint:                         "" => "<computed>"
+  engine:                           "" => "mysql"
+  engine_version:                   "" => "5.7"
+  hosted_zone_id:                   "" => "<computed>"
+  identifier:                       "" => "<computed>"
+  identifier_prefix:                "" => "<computed>"
+  instance_class:                   "" => "db.t2.micro"
+  kms_key_id:                       "" => "<computed>"
+  license_model:                    "" => "<computed>"
+  maintenance_window:               "" => "<computed>"
+  monitoring_interval:              "" => "0"
+  monitoring_role_arn:              "" => "<computed>"
+  multi_az:                         "" => "<computed>"
+  name:                             "" => "ejs"
+  option_group_name:                "" => "<computed>"
+  parameter_group_name:             "" => "default.mysql5.7"
+  password:                         "<sensitive>" => "<sensitive>"
+  port:                             "" => "<computed>"
+  publicly_accessible:              "" => "false"
+  replicas.#:                       "" => "<computed>"
+  resource_id:                      "" => "<computed>"
+  skip_final_snapshot:              "" => "true"
+  status:                           "" => "<computed>"
+  storage_type:                     "" => "gp2"
+  timezone:                         "" => "<computed>"
+  username:                         "" => "sa"
+  vpc_security_group_ids.#:         "" => "1"
+  vpc_security_group_ids.606440561: "" => "sg-929f37da"[0m
+[0m[1maws_security_group.my_db_sg: Creation complete after 3s (ID: sg-858e26cd)[0m[0m
+[0m[1maws_route_table_association.PublicAZB: Creation complete after 0s (ID: rtbassoc-992a6be6)[0m[0m
+[0m[1maws_route_table_association.PublicAZA: Creation complete after 0s (ID: rtbassoc-582a6b27)[0m[0m
+[0m[1maws_security_group.Backend: Creation complete after 3s (ID: sg-73822a3b)[0m[0m
+[0m[1maws_iam_instance_profile.ssm_profile: Still creating... (10s elapsed)[0m[0m
+[0m[1maws_network_acl.all: Still creating... (10s elapsed)[0m[0m
 [0m[1maws_nat_gateway.PublicAZA: Still creating... (10s elapsed)[0m[0m
 [0m[1maws_instance.windows: Still creating... (10s elapsed)[0m[0m
 [0m[1maws_db_instance.default: Still creating... (10s elapsed)[0m[0m
-[0m[1maws_instance.windows: Still creating... (20s elapsed)[0m[0m
+[0m[1maws_iam_instance_profile.ssm_profile: Still creating... (20s elapsed)[0m[0m
+[0m[1maws_network_acl.all: Still creating... (20s elapsed)[0m[0m
 [0m[1maws_nat_gateway.PublicAZA: Still creating... (20s elapsed)[0m[0m
+[0m[1maws_instance.windows: Still creating... (20s elapsed)[0m[0m
 [0m[1maws_db_instance.default: Still creating... (20s elapsed)[0m[0m
-[0m[1maws_instance.windows: Still creating... (30s elapsed)[0m[0m
+[0m[1maws_iam_instance_profile.ssm_profile: Creation complete after 27s (ID: ssm_profile)[0m[0m
+[0m[1maws_instance.apache: Creating...[0m
+  ami:                              "" => "ami-1853ac65"
+  associate_public_ip_address:      "" => "true"
+  availability_zone:                "" => "<computed>"
+  ebs_block_device.#:               "" => "<computed>"
+  ephemeral_block_device.#:         "" => "<computed>"
+  get_password_data:                "" => "false"
+  iam_instance_profile:             "" => "ssm_profile"
+  instance_state:                   "" => "<computed>"
+  instance_type:                    "" => "t2.micro"
+  ipv6_address_count:               "" => "<computed>"
+  ipv6_addresses.#:                 "" => "<computed>"
+  key_name:                         "" => "ej_key_pair"
+  network_interface.#:              "" => "<computed>"
+  network_interface_id:             "" => "<computed>"
+  password_data:                    "" => "<computed>"
+  placement_group:                  "" => "<computed>"
+  primary_network_interface_id:     "" => "<computed>"
+  private_dns:                      "" => "<computed>"
+  private_ip:                       "" => "<computed>"
+  public_dns:                       "" => "<computed>"
+  public_ip:                        "" => "<computed>"
+  root_block_device.#:              "" => "<computed>"
+  security_groups.#:                "" => "<computed>"
+  source_dest_check:                "" => "true"
+  subnet_id:                        "" => "subnet-146eaf73"
+  tags.%:                           "" => "2"
+  tags.Environment:                 "" => "Test"
+  tags.Name:                        "" => "apache"
+  tenancy:                          "" => "<computed>"
+  volume_tags.%:                    "" => "<computed>"
+  vpc_security_group_ids.#:         "" => "1"
+  vpc_security_group_ids.606440561: "" => "sg-929f37da"[0m
+[0m[1maws_instance.chefserver: Creating...[0m
+  ami:                              "" => "ami-1853ac65"
+  associate_public_ip_address:      "" => "true"
+  availability_zone:                "" => "<computed>"
+  ebs_block_device.#:               "" => "<computed>"
+  ephemeral_block_device.#:         "" => "<computed>"
+  get_password_data:                "" => "false"
+  iam_instance_profile:             "" => "ssm_profile"
+  instance_state:                   "" => "<computed>"
+  instance_type:                    "" => "t2.small"
+  ipv6_address_count:               "" => "<computed>"
+  ipv6_addresses.#:                 "" => "<computed>"
+  key_name:                         "" => "ej_key_pair"
+  network_interface.#:              "" => "<computed>"
+  network_interface_id:             "" => "<computed>"
+  password_data:                    "" => "<computed>"
+  placement_group:                  "" => "<computed>"
+  primary_network_interface_id:     "" => "<computed>"
+  private_dns:                      "" => "<computed>"
+  private_ip:                       "" => "<computed>"
+  public_dns:                       "" => "<computed>"
+  public_ip:                        "" => "<computed>"
+  root_block_device.#:              "" => "<computed>"
+  security_groups.#:                "" => "<computed>"
+  source_dest_check:                "" => "true"
+  subnet_id:                        "" => "subnet-146eaf73"
+  tags.%:                           "" => "2"
+  tags.Environment:                 "" => "Test"
+  tags.Name:                        "" => "chefserver"
+  tenancy:                          "" => "<computed>"
+  user_data_base64:                 "" => "I2Nsb3VkLWNvbmZpZwoKcGFja2FnZV91cGRhdGU6IHRydWUKcGFja2FnZV91cGdyYWRlOiB0cnVlCnBhY2thZ2VzOgotIHB5dGhvbi1waXAKLSBqcQotIGJjCi0gZ2l0CgpjaGVmX2Jvb3RzdHJhcDoKLSAmY2hlZl9ib290c3RyYXAgfAogIGVjaG8gIiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMiCiAgZWNobyAiIyMjIyMgY29weSBrZXlzICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyIKICBlY2hvICIjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIgogIHJldHJ5KCkgewogICAgZm9yIGkgaW4gezEuLjE1fTsgZG8KICAgICAgZXZhbCAkQCAmJiByZXR1cm5fc3RhdHVzPSQ/ICYmIGJyZWFrIHx8IHJldHVybl9zdGF0dXM9JD8gJiYgc2xlZXAgMzA7CiAgICBkb25lCiAgICByZXR1cm4gJCR7cmV0dXJuX3N0YXR1c30KICB9CiAgY3AgL2hvbWUvZWMyLXVzZXIvLnNzaC9pZF9yc2EgICAgICAgICAgL3Jvb3QvLnNzaC9pZF9yc2EKICBjcCAvaG9tZS9lYzItdXNlci8uc3NoL2lkX3JzYS5wdWIgICAgICAvcm9vdC8uc3NoL2lkX3JzYS5wdWIKICBjcCAvaG9tZS9lYzItdXNlci8uc3NoL2VqX2tleV9wYWlyLnBlbSAvcm9vdC8uc3NoL2VqX2tleV9wYWlyLnBlbQogIGVjaG8gIiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMiCiAgZWNobyAiIyMjIyMgU2V0dGluZyBIb3N0IERldGFpbHMgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyIKICBlY2hvICIjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIgogIHNlZCAtaSAicy9sb2NhbGhvc3QubG9jYWxkb21haW4vY2hlZnNlcnZlci9nIiAvZXRjL3N5c2NvbmZpZy9uZXR3b3JrCiAgZWNobyAiJChjdXJsICdodHRwOi8vMTY5LjI1NC4xNjkuMjU0L2xhdGVzdC9tZXRhLWRhdGEvcHVibGljLWlwdjQnKSBjaGVmc2VydmVyIiA+IC9ldGMvaG9zdHMKICBob3N0bmFtZSBjaGVmc2VydmVyCiAgZWNobyAiIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyIKICBlY2hvICIjIyMjIyBpbnN0YWxsIGNoZWYgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIgogIGVjaG8gIiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMiCiAgbWtkaXIgL3Vzci9saWIvc3lzdGVtZAogIG1rZGlyIC91c3IvbGliL3N5c3RlbWQvc3lzdGVtCiAgd2dldCBodHRwczovL3BhY2thZ2VzLmNoZWYuaW8vZmlsZXMvc3RhYmxlL2NoZWYtc2VydmVyLzEyLjE3LjMzL2VsLzcvY2hlZi1zZXJ2ZXItY29yZS0xMi4xNy4zMy0xLmVsNy54ODZfNjQucnBtCiAgcnBtIC1pdmggY2hlZi1zZXJ2ZXItY29yZS0xMi4xNy4zMy0xLmVsNy54ODZfNjQucnBtCiAgZWNobyAiIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyIKICBlY2hvICIjIyMjIyBjaGVmLXNlcnZlci1jdGwgcmVjb25maWd1cmUgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyIKICBlY2hvICIjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIgogIGNoZWYtc2VydmVyLWN0bCByZWNvbmZpZ3VyZQogIGNoZWYtc2VydmVyLWN0bCByZWNvbmZpZ3VyZQogIGNoZWYtc2VydmVyLWN0bCByZWNvbmZpZ3VyZQogIGVjaG8gIiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMiCiAgZWNobyAiIyMjIyMgY2hlZi1zZXJ2ZXItY3RsIHN0YXR1cyAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMiCiAgZWNobyAiIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyIKICBjcCAvb3B0L29wc2NvZGUvZW1iZWRkZWQvc2VydmljZS9vbW5pYnVzLWN0bC9zcGVjL2ZpeHR1cmVzL3Bpdm90YWwucGVtIC9ldGMvb3BzY29kZS8KICBjaGVmLXNlcnZlci1jdGwgc3RhdHVzCiAgZWNobyAiIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyIKICBlY2hvICIjIyMjIyBybS9ta2RpciAve3Jvb3QsaG9tZS9lYzItdXNlcn0vLmNoZWYgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIgogIGVjaG8gIiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMiCiAgcm0gLVJmIC9yb290Ly5jaGVmCiAgbWtkaXIgL3Jvb3QvLmNoZWYKICBta2RpciAvaG9tZS9lYzItdXNlci8uY2hlZgogIGVjaG8gIiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMiCiAgZWNobyAiIyMjIyMgY2hlZi1zZXJ2ZXItY3RsIHVzZXItY3JlYXRlIGVqIGVqIGJlc3QgZWpAZXJpY2guY29tIDY2NjY2NiAtLWZpbGVuYW1lIC9ob21lL2VjMi11c2VyLy5jaGVmL2VqLnBlbSIKICBlY2hvICIjIyMjIyBjaGVmLXNlcnZlci1jdGwgb3JnLWNyZWF0ZSBzc2EgU1NBIC0tYXNzb2NpYXRpb25fdXNlciBlaiAtLWZpbGVuYW1lICAgL2hvbWUvZWMyLXVzZXIvLmNoZWYvc3NhLnBlbSIKICBlY2hvICIjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIgogIGNoZWYtc2VydmVyLWN0bCB1c2VyLWNyZWF0ZSBlaiBlaiBiZXN0IGVqQGVyaWNoLmNvbSA2NjY2NjYgLS1maWxlbmFtZSAvaG9tZS9lYzItdXNlci8uY2hlZi9lai5wZW0KICBjaGVmLXNlcnZlci1jdGwgb3JnLWNyZWF0ZSBzc2EgU1NBIC0tYXNzb2NpYXRpb25fdXNlciBlaiAtLWZpbGVuYW1lICAgL2hvbWUvZWMyLXVzZXIvLmNoZWYvc3NhLnBlbQogIGNob3duIC1SIGVjMi11c2VyOiAvaG9tZS9lYzItdXNlci8uY2hlZgogIGVjaG8gIiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMiCiAgZWNobyAiIyMjIyMgY2hlZi1zZXJ2ZXItY3RsIGluc3RhbGwgY2hlZi1tYW5hZ2UgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyIKICBlY2hvICIjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIgogIGNoZWYtc2VydmVyLWN0bCBpbnN0YWxsIGNoZWYtbWFuYWdlCiAgY2hlZi1zZXJ2ZXItY3RsIHJlY29uZmlndXJlCiAgb3BzY29kZS1tYW5hZ2UtY3RsIHJlY29uZmlndXJlIC0tYWNjZXB0LWxpY2Vuc2UKICBlY2hvICIqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioiCiAgZWNobyAiKiBJbnN0YWxsZWQgQ2hlZiBTZXJ2ZXI6IENPTVBMRVRFRCAgICAgICAqIgogIGVjaG8gIioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKiIKCnJ1bmNtZDoKLSBbIGJhc2gsIC1jLCAqY2hlZl9ib290c3RyYXAgXQoKb3V0cHV0OiB7IGFsbDogJ3wgdGVlIC1hIC92YXIvbG9nL2Nsb3VkLWluaXQtb3V0cHV0LmxvZycgfQo="
+  volume_tags.%:                    "" => "<computed>"
+  vpc_security_group_ids.#:         "" => "1"
+  vpc_security_group_ids.606440561: "" => "sg-929f37da"[0m
+[0m[1maws_network_acl.all: Creation complete after 27s (ID: acl-593ab523)[0m[0m
 [0m[1maws_nat_gateway.PublicAZA: Still creating... (30s elapsed)[0m[0m
+[0m[1maws_instance.windows: Still creating... (30s elapsed)[0m[0m
 [0m[1maws_db_instance.default: Still creating... (30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (10s elapsed)[0m[0m
+[0m[1maws_instance.chefserver: Still creating... (10s elapsed)[0m[0m
+[0m[1maws_instance.windows: Creation complete after 32s (ID: i-059ff807f82a59a57)[0m[0m
 [0m[1maws_nat_gateway.PublicAZA: Still creating... (40s elapsed)[0m[0m
-[0m[1maws_instance.windows: Still creating... (40s elapsed)[0m[0m
 [0m[1maws_db_instance.default: Still creating... (40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (20s elapsed)[0m[0m
+[0m[1maws_instance.chefserver: Still creating... (20s elapsed)[0m[0m
+[0m[1maws_instance.chefserver: Provisioning with 'file'...[0m[0m
 [0m[1maws_nat_gateway.PublicAZA: Still creating... (50s elapsed)[0m[0m
-[0m[1maws_instance.windows: Still creating... (50s elapsed)[0m[0m
-[0m[1maws_instance.windows: Creation complete after 50s (ID: i-0afbd9c638984968b)[0m[0m
 [0m[1maws_db_instance.default: Still creating... (50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (30s elapsed)[0m[0m
+[0m[1maws_instance.chefserver: Still creating... (30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Provisioning with 'file'...[0m[0m
 [0m[1maws_nat_gateway.PublicAZA: Still creating... (1m0s elapsed)[0m[0m
 [0m[1maws_db_instance.default: Still creating... (1m0s elapsed)[0m[0m
+[0m[1maws_instance.chefserver: Still creating... (40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (40s elapsed)[0m[0m
 [0m[1maws_nat_gateway.PublicAZA: Still creating... (1m10s elapsed)[0m[0m
 [0m[1maws_db_instance.default: Still creating... (1m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (50s elapsed)[0m[0m
+[0m[1maws_instance.chefserver: Still creating... (50s elapsed)[0m[0m
 [0m[1maws_nat_gateway.PublicAZA: Still creating... (1m20s elapsed)[0m[0m
 [0m[1maws_db_instance.default: Still creating... (1m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (1m0s elapsed)[0m[0m
+[0m[1maws_instance.chefserver: Still creating... (1m0s elapsed)[0m[0m
+[0m[1maws_instance.chefserver: Provisioning with 'file'...[0m[0m
 [0m[1maws_nat_gateway.PublicAZA: Still creating... (1m30s elapsed)[0m[0m
+[0m[1maws_instance.chefserver: Provisioning with 'file'...[0m[0m
 [0m[1maws_db_instance.default: Still creating... (1m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (1m10s elapsed)[0m[0m
+[0m[1maws_instance.chefserver: Still creating... (1m10s elapsed)[0m[0m
+[0m[1maws_instance.chefserver: Creation complete after 1m13s (ID: i-09b4e2dc35e5b01f6)[0m[0m
+[0m[1maws_route53_record.chefserver: Creating...[0m
+  allow_overwrite:    "" => "true"
+  fqdn:               "" => "<computed>"
+  name:               "" => "chefserver.erich.com"
+  records.#:          "" => "1"
+  records.3333656215: "" => "ec2-18-206-71-194.compute-1.amazonaws.com"
+  ttl:                "" => "60"
+  type:               "" => "CNAME"
+  zone_id:            "" => "ZBVO8OQHTFSNO"[0m
 [0m[1maws_nat_gateway.PublicAZA: Still creating... (1m40s elapsed)[0m[0m
 [0m[1maws_db_instance.default: Still creating... (1m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (1m20s elapsed)[0m[0m
+[0m[1maws_route53_record.chefserver: Still creating... (10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Provisioning with 'file'...[0m[0m
+[0m[1maws_instance.apache: Provisioning with 'file'...[0m[0m
+[0m[1maws_instance.apache: Provisioning with 'remote-exec'...[0m[0m
+[0m[0maws_instance.apache (remote-exec): Connecting to remote host via SSH...
+aws_instance.apache (remote-exec):   Host: 34.205.135.118
+aws_instance.apache (remote-exec):   User: ec2-user
+aws_instance.apache (remote-exec):   Password: false
+aws_instance.apache (remote-exec):   Private key: true
+aws_instance.apache (remote-exec):   SSH Agent: false
+aws_instance.apache (remote-exec):   Checking Host Key: false
+[0m[0maws_instance.apache (remote-exec): Connected!
+[0m[0maws_instance.apache (remote-exec): ##################################################################################
+[0m[0maws_instance.apache (remote-exec): ##### EJ's user_data.sh ##########################################################
+[0m[0maws_instance.apache (remote-exec): ##################################################################################
+[0m[0maws_instance.apache (remote-exec): Loaded plugins: priorities, update-motd,
+[0m[0maws_instance.apache (remote-exec):               : upgrade-helper
+[0m[0maws_instance.apache (remote-exec): No Match for argument: python-pip
+[0m[0maws_instance.apache (remote-exec): No package [1mpython-pip(B[m available.
+[0m[0maws_instance.apache (remote-exec): Package(s) [1mjq(B[m available, but not installed.
+[0m[0maws_instance.apache (remote-exec): Package(s) [1mgit(B[m available, but not installed.
+[0m[0maws_instance.apache (remote-exec): No Match for argument: httpd6
+[0m[0maws_instance.apache (remote-exec): No package [1mhttpd6(B[m available.
+[0m[0maws_instance.apache (remote-exec): Package(s) [1mphp56-mysqlnd(B[m available, but not installed.
+[0m[0maws_instance.apache (remote-exec): Package(s) [1mhttpd(B[m available, but not installed.
+[0m[0maws_instance.apache (remote-exec): No packages marked for update
+[0m[0maws_instance.apache (remote-exec): ##################################################################################
+[0m[0maws_instance.apache (remote-exec): ##### copy keys ##################################################################
+[0m[0maws_instance.apache (remote-exec): ##################################################################################
+[0m[0maws_instance.apache (remote-exec): chmod: cannot access ‘/root/.ssh/*’: No such file or directory
+[0m[0maws_instance.apache (remote-exec): failed to change mode of ‘/root/.ssh/*’ from 0000 (---------) to 0000 (---------)
+[0m[0maws_instance.apache (remote-exec): ##################################################################################
+[0m[0maws_instance.apache (remote-exec): ##### Setting Host Details #######################################################
+[0m[0maws_instance.apache (remote-exec): ##################################################################################
+[0m[0maws_instance.apache (remote-exec):   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+[0m[0maws_instance.apache (remote-exec):                                  Dload  Upload   Total   Spent    Left  Speed
+[0m[0maws_instance.apache (remote-exec):   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+aws_instance.apache (remote-exec): 100    14  100    14    0     0   3260      0 --:--:-- --:--:-- --:--:--  3500
+[0m[0maws_instance.apache (remote-exec): /tmp/terraform_1762510452.sh: line 28: /etc/hosts: Permission denied
+[0m[0maws_instance.apache (remote-exec): chmod: cannot access ‘/ec2-user/.ssh/ej_key_pair.pem’: No such file or directory
+[0m[0maws_instance.apache (remote-exec): touch: cannot touch ‘/ec2-user/ssa.pem’: No such file or directory
+[0m[0maws_instance.apache (remote-exec): chmod: cannot access ‘/ec2-user/ssa.pem’: No such file or directory
+[0m[0maws_instance.apache (remote-exec): ##################################################################################
+[0m[0maws_instance.apache (remote-exec): #### getting ssa.pem #############################################################
+[0m[0maws_instance.apache (remote-exec): ##################################################################################
+[0m[0maws_instance.apache (remote-exec): ssh: Could not resolve hostname chefserver.erich.com: Name or service not known
+[0m[0maws_instance.apache (remote-exec): mode of ‘/etc/chef/ssa.pem’ changed from 0777 (rwxrwxrwx) to 0400 (r--------)
+[0m[0maws_instance.apache (remote-exec): total 8
+[0m[0maws_instance.apache (remote-exec): drwxr-xr-x 79 root root 4096 May 15 15:25 ..
+[0m[0maws_instance.apache (remote-exec): -r--------  1 root root    0 May 15 15:25 ssa.pem
+[0m[0maws_instance.apache (remote-exec): drwxr-xr-x  2 root root 4096 May 15 15:25 .
+[0m[0maws_instance.apache (remote-exec): ##################################################################################
+[0m[0maws_instance.apache (remote-exec): #### sudo rm /var/lib/rpm/.rpm.lock ##############################################
+[0m[0maws_instance.apache (remote-exec): ##################################################################################
+[0m[0maws_instance.apache (remote-exec): ##################################################################################
+[0m[0maws_instance.apache (remote-exec): #### sudo su #####################################################################
+[0m[0maws_instance.apache (remote-exec): ##################################################################################
+[0m[0maws_instance.apache (remote-exec): ]0;root@apache:/home/ec2-user[?1034h[root@apache ec2-user]#
 [0m[1maws_nat_gateway.PublicAZA: Still creating... (1m50s elapsed)[0m[0m
 [0m[1maws_db_instance.default: Still creating... (1m50s elapsed)[0m[0m
-[0m[1maws_nat_gateway.PublicAZA: Still creating... (2m0s elapsed)[0m[0m
-[0m[1maws_nat_gateway.PublicAZA: Creation complete after 2m0s (ID: nat-00e55e985b6d270bc)[0m[0m
+[0m[1maws_instance.apache: Still creating... (1m30s elapsed)[0m[0m
+[0m[1maws_route53_record.chefserver: Still creating... (20s elapsed)[0m[0m
+[0m[1maws_nat_gateway.PublicAZA: Creation complete after 1m58s (ID: nat-08527cdba767e76a5)[0m[0m
 [0m[1maws_route_table.private: Creating...[0m
   propagating_vgws.#:                         "" => "<computed>"
   route.#:                                    "" => "1"
-  route.1353053640.cidr_block:                "" => "0.0.0.0/0"
-  route.1353053640.egress_only_gateway_id:    "" => ""
-  route.1353053640.gateway_id:                "" => ""
-  route.1353053640.instance_id:               "" => ""
-  route.1353053640.ipv6_cidr_block:           "" => ""
-  route.1353053640.nat_gateway_id:            "" => "nat-00e55e985b6d270bc"
-  route.1353053640.network_interface_id:      "" => ""
-  route.1353053640.vpc_peering_connection_id: "" => ""
+  route.3069312436.cidr_block:                "" => "0.0.0.0/0"
+  route.3069312436.egress_only_gateway_id:    "" => ""
+  route.3069312436.gateway_id:                "" => ""
+  route.3069312436.instance_id:               "" => ""
+  route.3069312436.ipv6_cidr_block:           "" => ""
+  route.3069312436.nat_gateway_id:            "" => "nat-08527cdba767e76a5"
+  route.3069312436.network_interface_id:      "" => ""
+  route.3069312436.vpc_peering_connection_id: "" => ""
   tags.%:                                     "" => "1"
   tags.Name:                                  "" => "Private"
-  vpc_id:                                     "" => "vpc-fa1c3581"[0m
-[0m[1maws_db_instance.default: Still creating... (2m0s elapsed)[0m[0m
-[0m[1maws_route_table.private: Creation complete after 2s (ID: rtb-02465b7e)[0m[0m
+  vpc_id:                                     "" => "vpc-43dbf238"[0m
+[0m[1maws_route_table.private: Creation complete after 1s (ID: rtb-b33924cf)[0m[0m
 [0m[1maws_route_table_association.PrivateAZA: Creating...[0m
-  route_table_id: "" => "rtb-02465b7e"
-  subnet_id:      "" => "subnet-ebe21cc5"[0m
-[0m[1maws_route_table_association.PrivateAZA: Creation complete after 0s (ID: rtbassoc-77a3e508)[0m[0m
+  route_table_id: "" => "rtb-b33924cf"
+  subnet_id:      "" => "subnet-ee2cd2c0"[0m
+[0m[1maws_route_table_association.PrivateAZA: Creation complete after 1s (ID: rtbassoc-da3273a5)[0m[0m
+[0m[1maws_db_instance.default: Still creating... (2m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (1m40s elapsed)[0m[0m
+[0m[1maws_route53_record.chefserver: Still creating... (30s elapsed)[0m[0m
 [0m[1maws_db_instance.default: Still creating... (2m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (1m50s elapsed)[0m[0m
+[0m[1maws_route53_record.chefserver: Still creating... (40s elapsed)[0m[0m
 [0m[1maws_db_instance.default: Still creating... (2m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (2m0s elapsed)[0m[0m
+[0m[1maws_route53_record.chefserver: Still creating... (50s elapsed)[0m[0m
 [0m[1maws_db_instance.default: Still creating... (2m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (2m10s elapsed)[0m[0m
+[0m[1maws_route53_record.chefserver: Still creating... (1m0s elapsed)[0m[0m
 [0m[1maws_db_instance.default: Still creating... (2m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (2m20s elapsed)[0m[0m
+[0m[1maws_route53_record.chefserver: Creation complete after 1m7s (ID: ZBVO8OQHTFSNO_chefserver.erich.com_CNAME)[0m[0m
 [0m[1maws_db_instance.default: Still creating... (2m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (2m30s elapsed)[0m[0m
 [0m[1maws_db_instance.default: Still creating... (3m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (2m40s elapsed)[0m[0m
 [0m[1maws_db_instance.default: Still creating... (3m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (2m50s elapsed)[0m[0m
 [0m[1maws_db_instance.default: Still creating... (3m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (3m0s elapsed)[0m[0m
 [0m[1maws_db_instance.default: Still creating... (3m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (3m10s elapsed)[0m[0m
 [0m[1maws_db_instance.default: Still creating... (3m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (3m20s elapsed)[0m[0m
 [0m[1maws_db_instance.default: Still creating... (3m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (3m30s elapsed)[0m[0m
 [0m[1maws_db_instance.default: Still creating... (4m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (3m40s elapsed)[0m[0m
 [0m[1maws_db_instance.default: Still creating... (4m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (3m50s elapsed)[0m[0m
 [0m[1maws_db_instance.default: Still creating... (4m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (4m0s elapsed)[0m[0m
 [0m[1maws_db_instance.default: Still creating... (4m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (4m10s elapsed)[0m[0m
 [0m[1maws_db_instance.default: Still creating... (4m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (4m20s elapsed)[0m[0m
 [0m[1maws_db_instance.default: Still creating... (4m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (4m30s elapsed)[0m[0m
 [0m[1maws_db_instance.default: Still creating... (5m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (4m40s elapsed)[0m[0m
 [0m[1maws_db_instance.default: Still creating... (5m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (4m50s elapsed)[0m[0m
 [0m[1maws_db_instance.default: Still creating... (5m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (5m0s elapsed)[0m[0m
 [0m[1maws_db_instance.default: Still creating... (5m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (5m10s elapsed)[0m[0m
 [0m[1maws_db_instance.default: Still creating... (5m40s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (5m50s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (6m0s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (6m10s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (6m20s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (6m30s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (6m40s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (6m50s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (7m0s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (7m10s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (7m20s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (7m30s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (7m40s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (7m50s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (8m0s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (8m10s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (8m20s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (8m30s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (8m40s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (8m50s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (9m0s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (9m10s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (9m20s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (9m30s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (9m40s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (9m50s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (10m0s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (10m10s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (10m20s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (10m30s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (10m40s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (10m50s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (11m0s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (11m10s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (11m20s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (11m30s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (11m40s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (11m50s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (12m0s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (12m10s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (12m20s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (12m30s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (12m40s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (12m50s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (13m0s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (13m10s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (13m20s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (13m30s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (13m40s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (13m51s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (14m1s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (14m11s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (14m21s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (14m31s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (14m41s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (14m51s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (15m1s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (15m11s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (15m21s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (15m31s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (15m41s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (15m51s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (16m1s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (16m11s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (16m21s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (16m31s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (16m41s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (16m51s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (17m1s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (17m11s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (17m21s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (17m31s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (17m41s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (17m51s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (18m1s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (18m11s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (18m21s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (18m31s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (18m41s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (18m51s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (19m1s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (19m11s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (19m21s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (19m31s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (19m41s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (19m51s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (20m1s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (20m11s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (20m21s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (20m31s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (20m41s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (20m51s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (21m1s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (21m11s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (21m21s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (21m31s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (21m41s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (21m51s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (22m1s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (22m11s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (22m21s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (22m31s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (22m41s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (22m51s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (23m1s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (23m11s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (23m21s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (23m31s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (23m41s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (23m51s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (24m1s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (24m11s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (24m21s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (24m31s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (24m41s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (24m51s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (25m1s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (25m11s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (25m21s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (25m31s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (25m41s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (25m51s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (26m1s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (26m11s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (26m21s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (26m31s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (26m41s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (26m51s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (27m1s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (27m11s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (27m21s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (27m31s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (27m41s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (27m51s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (28m1s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (28m11s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (28m21s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (28m31s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (28m41s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (28m51s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (29m1s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (29m11s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (29m21s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (29m31s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (29m41s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (29m51s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (30m1s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (30m11s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (30m21s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (30m31s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (30m41s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (30m51s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (31m1s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (31m11s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (31m21s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (31m31s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (31m41s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (31m51s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (32m1s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (32m11s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (32m21s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (32m31s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (32m41s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (32m51s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (33m1s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (33m11s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (33m21s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (33m31s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (33m41s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (33m51s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (34m1s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (34m11s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (34m21s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (34m31s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (34m41s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (34m51s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (35m1s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (35m11s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (35m21s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (35m31s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (35m41s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (35m51s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (36m1s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (36m11s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (36m21s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (36m31s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (36m41s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (36m51s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (37m1s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (37m11s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (37m21s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (37m31s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (37m41s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (37m51s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (38m1s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (38m11s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (38m21s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (38m31s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (38m41s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (38m51s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (39m1s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (39m11s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (39m21s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (39m31s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (39m41s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (39m51s elapsed)[0m[0m
-[0m[1maws_db_instance.default: Still creating... (40m1s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (5m20s elapsed)[0m[0m
+[0m[1maws_db_instance.default: Creation complete after 5m42s (ID: terraform-20180515152337708500000002)[0m[0m
+[0m[1maws_route53_record.ejs: Creating...[0m
+  allow_overwrite:    "" => "true"
+  fqdn:               "" => "<computed>"
+  name:               "" => "mysql.erich.com"
+  records.#:          "" => "1"
+  records.4121646142: "" => "terraform-20180515152337708500000002.ct7lgzsrlxwd.us-east-1.rds.amazonaws.com"
+  ttl:                "" => "60"
+  type:               "" => "CNAME"
+  zone_id:            "" => "ZBVO8OQHTFSNO"[0m
+[0m[1maws_instance.apache: Still creating... (5m30s elapsed)[0m[0m
+[0m[1maws_route53_record.ejs: Still creating... (10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (5m40s elapsed)[0m[0m
+[0m[1maws_route53_record.ejs: Still creating... (20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (5m50s elapsed)[0m[0m
+[0m[1maws_route53_record.ejs: Still creating... (30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (6m0s elapsed)[0m[0m
+[0m[1maws_route53_record.ejs: Still creating... (40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (6m10s elapsed)[0m[0m
+[0m[1maws_route53_record.ejs: Creation complete after 49s (ID: ZBVO8OQHTFSNO_mysql.erich.com_CNAME)[0m[0m
+[0m[1maws_instance.apache: Still creating... (6m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (6m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (6m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (6m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (7m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (7m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (7m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (7m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (7m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (7m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (8m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (8m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (8m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (8m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (8m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (8m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (9m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (9m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (9m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (9m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (9m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (9m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (10m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (10m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (10m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (10m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (10m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (10m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (11m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (11m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (11m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (11m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (11m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (11m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (12m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (12m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (12m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (12m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (12m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (12m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (13m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (13m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (13m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (13m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (13m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (13m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (14m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (14m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (14m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (14m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (14m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (14m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (15m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (15m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (15m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (15m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (15m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (15m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (16m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (16m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (16m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (16m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (16m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (16m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (17m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (17m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (17m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (17m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (17m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (17m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (18m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (18m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (18m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (18m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (18m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (18m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (19m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (19m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (19m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (19m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (19m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (19m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (20m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (20m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (20m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (20m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (20m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (20m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (21m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (21m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (21m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (21m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (21m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (21m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (22m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (22m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (22m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (22m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (22m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (22m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (23m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (23m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (23m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (23m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (23m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (23m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (24m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (24m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (24m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (24m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (24m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (24m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (25m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (25m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (25m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (25m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (25m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (25m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (26m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (26m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (26m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (26m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (26m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (26m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (27m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (27m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (27m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (27m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (27m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (27m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (28m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (28m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (28m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (28m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (28m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (28m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (29m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (29m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (29m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (29m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (29m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (29m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (30m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (30m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (30m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (30m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (30m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (30m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (31m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (31m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (31m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (31m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (31m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (31m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (32m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (32m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (32m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (32m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (32m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (32m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (33m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (33m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (33m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (33m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (33m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (33m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (34m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (34m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (34m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (34m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (34m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (34m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (35m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (35m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (35m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (35m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (35m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (35m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (36m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (36m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (36m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (36m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (36m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (36m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (37m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (37m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (37m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (37m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (37m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (37m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (38m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (38m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (38m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (38m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (38m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (38m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (39m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (39m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (39m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (39m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (39m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (39m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (40m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (40m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (40m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (40m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (40m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (40m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (41m0s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (41m10s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (41m20s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (41m30s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (41m40s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (41m50s elapsed)[0m[0m
+[0m[1maws_instance.apache: Still creating... (42m0s elapsed)[0m[0m
