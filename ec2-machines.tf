@@ -1,5 +1,4 @@
 
-# this is a marker
 
 resource "aws_instance" "apache" {
   ami                         = "${lookup(var.AmiLinux, var.region)}"
