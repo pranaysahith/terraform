@@ -175,7 +175,7 @@ resource "aws_db_subnet_group" "dbsubnet" {
 }
 
 resource "aws_iam_instance_profile" "ssm_profile" {
-  name                        = "ssm_profile1"
+  name                        = "ssm_profile"
   role                        = "${aws_iam_role.ssm_role.name}"
 }
 
