@@ -7,7 +7,7 @@
 #                                                                       #
 #                                                                       #
 #########################################################################
-set +x
+set -x
 terraform init
 terraform validate
 terraform plan

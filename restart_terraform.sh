@@ -1,13 +1,13 @@
 #!/bin/bash
 #########################################################################
-# start_terraform.sh                                                    #
+# restart_terraform.sh                                                  #
 #                                                                       #
 #                                                                       #
 #                                                                       #
 #                                                                       #
 #                                                                       #
 #########################################################################
-set +x
+set -x
 terraform destroy -auto-approve
 date
 terraform init
