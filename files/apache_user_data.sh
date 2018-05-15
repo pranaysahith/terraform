@@ -2,6 +2,9 @@
 echo "##################################################################################"
 echo "##### EJ's user_data.sh ##########################################################"
 echo "##################################################################################"
+touch /tmp/ej_was_here.txt
+echo "ej_was_inside_the_file" >> /tmp/ej_was_here.txt
+echo "##################################################################################"
 #package_update: true
 #package_upgrade: true
 #packages:
@@ -70,8 +73,3 @@ sudo yum upgrade python-pip jq bc git httpd6 php56-mysqlnd httpd
   sudo chef-client -S https://chefserver.erich.com/organizations/ssa -K /etc/chef/ssa.pem
   sudo service httpd start
   sudo chkconfig httpd on
-
-#runcmd:
-#- [ bash, -c, *chef_bootstrap ]
-
-#output: { all: '| tee -a /var/log/cloud-init-output.log' }

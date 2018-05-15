@@ -26,7 +26,7 @@ chef_bootstrap:
   echo "##### Setting Host Details #######################################################"
   echo "##################################################################################"
   sed -i "s/localhost.localdomain/chefserver/g" /etc/sysconfig/network
-  echo "$(curl 'http://169.254.169.254/latest/meta-data/public-ipv4') chefserver" > /etc/hosts
+  sudo echo "$(curl 'http://169.254.169.254/latest/meta-data/public-ipv4') chefserver" > /etc/hosts
   hostname chefserver
   echo "##################################################################################"
   echo "##### install chef ###############################################################"

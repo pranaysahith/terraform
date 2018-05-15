@@ -1,4 +1,7 @@
 
+##########################################################
+# PubblicAZA subnet and routing table                    #
+##########################################################
 resource "aws_subnet" "PublicAZA" {
   vpc_id = "${aws_vpc.terraformmain.id}"
   cidr_block = "${var.Subnet-Public-AzA-CIDR}"
@@ -13,20 +16,26 @@ resource "aws_route_table_association" "PublicAZA" {
     route_table_id = "${aws_route_table.public.id}"
 }
 
-resource "aws_subnet" "PrivateAZA" {
-  vpc_id = "${aws_vpc.terraformmain.id}"
-  cidr_block = "${var.Subnet-Private-AzA-CIDR}"
-  tags {
-        Name = "PublicAZB"
-  }
-  availability_zone = "${data.aws_availability_zones.available.names[1]}"
-}
+##########################################################
+# PubblicAZ_ subnet and routing table                    #
+##########################################################
+#resource "aws_subnet" "PrivateAZA" {
+#  vpc_id = "${aws_vpc.terraformmain.id}"
+#  cidr_block = "${var.Subnet-Private-AzA-CIDR}"
+#  tags {
+#        Name = "PublicAZB"
+#  }
+#  availability_zone = "${data.aws_availability_zones.available.names[1]}"
+#}
 
-resource "aws_route_table_association" "PrivateAZA" {
-    subnet_id = "${aws_subnet.PrivateAZA.id}"
-    route_table_id = "${aws_route_table.private.id}"
-}
+#resource "aws_route_table_association" "PrivateAZA" {
+#    subnet_id = "${aws_subnet.PrivateAZA.id}"
+#    route_table_id = "${aws_route_table.private.id}"
+#}
 
+##########################################################
+# PubblicAZB subnet and routing table                    #
+##########################################################
 resource "aws_subnet" "PublicAZB" {
   vpc_id = "${aws_vpc.terraformmain.id}"
   cidr_block = "${var.Subnet-Public-AzB-CIDR}"

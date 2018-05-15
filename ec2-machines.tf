@@ -50,20 +50,21 @@ resource "aws_instance" "apache" {
         Name                  = "apache"
         Environment           = "Test"
   }
-  #user_data_base64           = "${base64encode(file("./files/user_data.sh"))}"
-  provisioner "remote-exec" {
-      script                  = "./files/user_data.sh"
-      connection {
-        user                  = "ec2-user"
-        agent                 = "false"
-        type                  = "ssh"
-        private_key           = "${file("/Users/ej/.ssh/ej_key_pair.pem")}"
-        timeout               = "300s"
-      }
+  user_data_base64            = "${base64encode(file("./files/apache_user_data.sh"))}"
   }
-}
 
 
+
+#  provisioner "remote-exec" {
+#      script                  = "./files/user_data.sh"
+#      connection {
+#        user                  = "ec2-user"
+#        agent                 = "false"
+#        type                  = "ssh"
+#        private_key           = "${file("/Users/ej/.ssh/ej_key_pair.pem")}"
+#        timeout               = "300s"
+#      }
+#  }
 
 
 resource "aws_route53_record" "apache" {
@@ -172,6 +173,7 @@ resource "aws_route53_record" "ejs" {
 
 resource "aws_db_subnet_group" "dbsubnet" {
   subnet_ids                  = ["${aws_subnet.PublicAZA.id}", "${aws_subnet.PublicAZB.id}"]
+
 }
 
 resource "aws_iam_instance_profile" "ssm_profile" {
