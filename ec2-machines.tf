@@ -46,17 +46,6 @@ resource "aws_instance" "apache" {
     }
   }
 
-  provisioner "file" {
-      source                  = "/tmp/myfile.txt"
-      destination             = "/tmp/myfile.txt"
-      connection {
-        user                  = "ec2-user"
-        agent                 = "false"
-        type                  = "ssh"
-        private_key           = "${file("/Users/ej/.ssh/ej_key_pair.pem")}"
-        timeout               = "300s"
-      }
-  }
   tags {
         Name                  = "apache"
         Environment           = "Test"
@@ -129,18 +118,6 @@ resource "aws_instance" "chefserver" {
       private_key             = "${file("/Users/ej/.ssh/ej_key_pair.pem")}"
       timeout                 = "300s"
     }
-  }
-
-  provisioner "file" {
-      source                    = "/tmp/myfile.txt"
-      destination               = "/tmp/myfile.txt"
-      connection {
-        user                    = "ec2-user"
-        agent                   = "false"
-        type                    = "ssh"
-        private_key             = "${file("/Users/ej/.ssh/ej_key_pair.pem")}"
-        timeout                 = "300s"
-      }
   }
 
   tags {
