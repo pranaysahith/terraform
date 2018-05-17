@@ -66,7 +66,6 @@ resource "aws_instance" "apache" {
 #      }
 #  }
 
-
 resource "aws_route53_record" "apache" {
   zone_id                     = "ZBVO8OQHTFSNO"
   name                        = "apache.erich.com"
