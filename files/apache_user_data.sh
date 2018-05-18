@@ -73,3 +73,5 @@ sudo yum upgrade python-pip jq bc git httpd6 php56-mysqlnd httpd
   sudo chef-client -S https://chefserver.erich.com/organizations/ssa -K /etc/chef/ssa.pem
   sudo service httpd start
   sudo chkconfig httpd on
+  touch /tmp/ej_finished.txt
+  echo "ej_was_inside_the_file" >> /tmp/ej_finished.txt

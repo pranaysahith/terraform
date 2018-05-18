@@ -68,7 +68,9 @@ chef_bootstrap:
   echo "******************************************"
   echo "* Installed Chef Server: COMPLETED       *"
   echo "******************************************"
-
+  touch /tmp/ej_finished.txt
+  echo "ej_was_inside_the_file" >> /tmp/ej_finished.txt
+  
 runcmd:
 - [ bash, -c, *chef_bootstrap ]
 
