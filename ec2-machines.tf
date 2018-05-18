@@ -130,7 +130,7 @@ resource "aws_instance" "chefserver" {
 resource "aws_route53_record" "chefserver" {
   zone_id                     = "ZBVO8OQHTFSNO"
   name                        = "chefserver.erich.com"
-  type                        = "CNAME"
+  type                        = "A"
   ttl                         = "60"
   records                     = ["${aws_instance.chefserver.public_dns}"]
 }

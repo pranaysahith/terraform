@@ -65,12 +65,14 @@ chef_bootstrap:
   chef-server-ctl install chef-manage
   chef-server-ctl reconfigure
   opscode-manage-ctl reconfigure --accept-license
+  chef-manage-ctl reconfigure --accept-license
+  sudo chef-manage-ctl reconfigure --accept-license
   echo "******************************************"
   echo "* Installed Chef Server: COMPLETED       *"
   echo "******************************************"
   touch /tmp/ej_finished.txt
   echo "ej_was_inside_the_file" >> /tmp/ej_finished.txt
-  
+
 runcmd:
 - [ bash, -c, *chef_bootstrap ]
 
